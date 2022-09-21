@@ -30,7 +30,6 @@ contract Auction is ERC1155Holder {
     address public baliolaWallet;
     uint256 public nftAmount;
 
-
     enum AuctionState {
         OPEN,
         CANCELLED,
@@ -45,8 +44,8 @@ contract Auction is ERC1155Holder {
         uint256 bid;
     }
 
-    modifier onlyManager{
-        require(msg.sender == manager,"only manager can call");
+    modifier onlyManager() {
+        require(msg.sender == manager, "only manager can call");
         _;
     }
 
@@ -65,10 +64,10 @@ contract Auction is ERC1155Holder {
         address _nftSeller
     ) {
         creator = _creator; // The address of the auction creator
-        if (_endTime == 0){
+        if (_endTime == 0) {
             endTime = 0;
-        }else{
-            endTime =  _endTime; // The timestamp which marks the end of the auction (now + 30 days = 30 days from now)
+        } else {
+            endTime = _endTime; // The timestamp which marks the end of the auction (now + 30 days = 30 days from now)
         }
         startTime = block.timestamp; // The timestamp which marks the start of the auction
         minIncrement = 10000; // The minimum increment for the bid
@@ -85,7 +84,6 @@ contract Auction is ERC1155Holder {
         baliolaWallet = _baliola;
         nftAmount = _nftAmount;
     }
-
 
     // Returns a list of all bids and addresses
     function allBids()
@@ -136,10 +134,9 @@ contract Auction is ERC1155Holder {
                 maxBid = maxBid + bidAmount;
                 bids[bids.length - 1].bid = maxBid;
 
-                if (maxBid >= directBuyPrice){
+                if (maxBid >= directBuyPrice) {
                     isDirectBuy = true; // The auction has ended
                 }
-
 
                 return true;
             } else {
@@ -165,10 +162,7 @@ contract Auction is ERC1155Holder {
 
                 if (lastHighestBid != 0) {
                     // if there is a bid
-                    kepeng.transfer(
-                        lastHighestBidder,
-                        bidAmount
-                    ); // refund the previous bid to the previous highest bidder
+                    kepeng.transfer(lastHighestBidder, bidAmount); // refund the previous bid to the previous highest bidder
                 }
 
                 emit NewBid(bidder, bidAmount); // emit a new bid event
@@ -179,10 +173,7 @@ contract Auction is ERC1155Holder {
 
                 if (lastHighestBid != 0) {
                     // if there is a bid
-                    kepeng.transfer(
-                        lastHighestBidder,
-                        bidAmount
-                    ); // refund the previous bid to the previous highest bidder
+                    kepeng.transfer(lastHighestBidder, bidAmount); // refund the previous bid to the previous highest bidder
                 }
 
                 emit NewBid(bidder, bidAmount); // emit a new bid event
@@ -196,27 +187,32 @@ contract Auction is ERC1155Holder {
     function withdrawToken() external returns (bool) {
         require(
             getAuctionState() == AuctionState.ENDED ||
-                getAuctionState() == AuctionState.DIRECT_BUY||
+                getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
             "The auction must be ended by either a direct buy or timeout"
         ); // The auction must be ended by either a direct buy or timeout
 
-            require(
-                msg.sender == maxBidder,
-                "The highest bidder can only withdraw the token"
-            ); // The highest bidder can only withdraw the token
-            nft1155.safeTransferFrom(address(this), maxBidder, tokenId,nftAmount,""); // Transfer the token to the highest bidder
-            emit WithdrawToken(maxBidder); // Emit a withdraw token event
+        require(
+            msg.sender == maxBidder,
+            "The highest bidder can only withdraw the token"
+        ); // The highest bidder can only withdraw the token
+        nft1155.safeTransferFrom(
+            address(this),
+            maxBidder,
+            tokenId,
+            nftAmount,
+            ""
+        ); // Transfer the token to the highest bidder
+        emit WithdrawToken(maxBidder); // Emit a withdraw token event
 
-            return true;
-        
+        return true;
     }
 
     // Withdraw the funds after the auction is over
     function withdrawFunds() external returns (bool) {
         require(
             getAuctionState() == AuctionState.ENDED ||
-                getAuctionState() == AuctionState.DIRECT_BUY||
+                getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
             "The auction must be ended by either a direct buy, by creator, or timeout "
         ); // The auction must be ended by either a direct buy or timeout
@@ -225,7 +221,8 @@ contract Auction is ERC1155Holder {
             msg.sender == creator,
             "The auction creator can only withdraw the funds"
         ); // The auction creator can only withdraw the funds
-        uint256 fee = (maxBid * 3) / 100;
+        uint256 principal = (maxBid * 100) / 103;
+        uint256 fee = (principal * 3) / 100;
         uint256 reward = maxBid - fee;
         kepeng.transfer(nftSeller, reward); // Transfers funds to the creator
         kepeng.transfer(baliolaWallet, fee);
@@ -234,9 +231,12 @@ contract Auction is ERC1155Holder {
         return true;
     }
 
-    function endAuctionByCreator()external returns (bool){
-        require(msg.sender == creator,"only the creator can end the auction!");
-        require(getAuctionState() == AuctionState.OPEN,"can only end auction when it's open!");
+    function endAuctionByCreator() external returns (bool) {
+        require(msg.sender == creator, "only the creator can end the auction!");
+        require(
+            getAuctionState() == AuctionState.OPEN,
+            "can only end auction when it's open!"
+        );
 
         isEndedByCreator = true;
         emit EndedByCreator();
@@ -256,11 +256,10 @@ contract Auction is ERC1155Holder {
         ); // The auction must be open
         isCancelled = true; // The auction has been cancelled
 
-            nft1155.safeTransferFrom(address(this), maxBidder, tokenId,1,""); // Transfer the token to the highest bidder
-            kepeng.transfer(maxBidder, maxBid);
-            emit AuctionCanceled(); // Emit Auction Canceled event
-            return true;
-        
+        nft1155.safeTransferFrom(address(this), maxBidder, tokenId, 1, ""); // Transfer the token to the highest bidder
+        kepeng.transfer(maxBidder, maxBid);
+        emit AuctionCanceled(); // Emit Auction Canceled event
+        return true;
     }
 
     // Get the auction state
@@ -269,11 +268,11 @@ contract Auction is ERC1155Holder {
         if (isCancelled) return AuctionState.CANCELLED; // If the auction is cancelled return CANCELLED
         if (isDirectBuy) return AuctionState.DIRECT_BUY; // If the auction is ended by a direct buy return DIRECT_BUY
 
-        if (endTime == 0){
+        if (endTime == 0) {
             return AuctionState.OPEN;
-        }else if (block.timestamp >= endTime) {
+        } else if (block.timestamp >= endTime) {
             return AuctionState.ENDED; // The auction is over if the block timestamp is greater than the end timestamp, return ENDED
-        }else{
+        } else {
             return AuctionState.OPEN; // Otherwise return OPEN
         }
     }
