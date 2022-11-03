@@ -167,7 +167,7 @@ contract Auction {
 
                 if (lastHighestBid != 0) {
                     // if there is a bid
-                    kepeng.transfer(lastHighestBidder, bidAmount); // refund the previous bid to the previous highest bidder
+                    kepeng.transfer(lastHighestBidder, lastHighestBid); // refund the previous bid to the previous highest bidder
                 }
 
                 emit NewBid(bidder, bidAmount); // emit a new bid event
@@ -178,7 +178,7 @@ contract Auction {
 
                 if (lastHighestBid != 0) {
                     // if there is a bid
-                    kepeng.transfer(lastHighestBidder, bidAmount); // refund the previous bid to the previous highest bidder
+                    kepeng.transfer(lastHighestBidder, lastHighestBid); // refund the previous bid to the previous highest bidder
                 }
 
                 emit NewBid(bidder, bidAmount); // emit a new bid event
