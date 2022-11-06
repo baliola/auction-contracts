@@ -256,7 +256,7 @@ contract Auction is ERC1155Holder {
         ); // The auction must be open
         isCancelled = true; // The auction has been cancelled
 
-        nft1155.safeTransferFrom(address(this), maxBidder, tokenId, 1, ""); // Transfer the token to the highest bidder
+        nft1155.safeTransferFrom(address(this), maxBidder, tokenId, nftAmount, ""); // Transfer the token to the highest bidder
         kepeng.transfer(maxBidder, maxBid);
         emit AuctionCanceled(); // Emit Auction Canceled event
         return true;

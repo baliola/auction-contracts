@@ -120,6 +120,7 @@ contract Auction is ERC1155Holder {
         availableNFT = availableNFT - _amount;
        
         nft1155.safeTransferFrom(address(this), _buyer, tokenId, _amount, "");
+        kepeng.transfer(nftSeller,txFee);
         
         emit hasBought(_buyer, _amount);
 
