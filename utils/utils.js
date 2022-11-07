@@ -31,14 +31,25 @@ function getDeployedContracts(contractArtifact) {
     return contract
 }
 
+/**
+ * 
+ * @returns address used as baliola's placeholder 
+ */
 function getBaliolaWallet(accounts) {
     return accounts[0]
 }
 
+/**
+ * 
+ * @returns test contract manager address 
+ */
 function getManagerWallet(accounts) {
     return accounts[1]
 }
 
+/**
+ * @returns test contract deployer wallet address 
+ */
 function getDeployerWallet(accounts) {
     return accounts[0]
 }
