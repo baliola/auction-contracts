@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test-fast": "npx truffle test --compile-none",
-    "test-full": "npm run set-up && npx truffle test",
+    "test-full": "npm run set-up && npx truffle test --compile-none",
     "set-up": "npx truffle migrate"
   },
   "repository": {
