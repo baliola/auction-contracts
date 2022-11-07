@@ -59,12 +59,7 @@ contract Dummy1155 is
         uint256 amount,
         /* string memory uri,*/
         bytes memory data
-    ) public //onlyRole(MINTER_ROLE)
-    {
-        require(
-            hasRole(MINTER_ROLE, _msgSender()),
-            "Must have minter role to mint"
-        );
+    ) public {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _mint(account, tokenId, amount, data);
@@ -79,7 +74,11 @@ contract Dummy1155 is
         uint256[] memory amounts,
         /* string[] memory uri,*/
         bytes memory data
-    ) public returns (uint256[] memory) //onlyRole(MINTER_ROLE)
+    )
+        public
+        returns (
+            uint256[] memory //onlyRole(MINTER_ROLE)
+        )
     {
         require(
             hasRole(MINTER_ROLE, _msgSender()),
