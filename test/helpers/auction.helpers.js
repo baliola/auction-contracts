@@ -9,7 +9,6 @@ async function createDummyFixedPrice1155Auction(accounts) {
     const nftTokenId = 0
     const nftAmount = 1
     const auctionManager = await getDeployedContracts(fixedPriceAuctionManagerArtifact)
-    const initAuctionsList = await auctionManager.getAuctions()
 
     // mint nft for auction and set approval for auction manager 
     await nft1155Contract.mint(user, nftAmount, "0x", { from: deployer });
