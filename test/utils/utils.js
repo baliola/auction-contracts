@@ -8,3 +8,10 @@ const fixedPriceAuction = artifacts.require("AuctionFixedPrice1155");
 const fixedPriceAuctionManager = artifacts.require("FixedPriceAuctionManager1155");
 const kepeng = artifacts.require("KEPENG");
 
+
+
+async function deployKepeng() {
+    const token = await kepeng.deployed();
+
+    return token
+} 
