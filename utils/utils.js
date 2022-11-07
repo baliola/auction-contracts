@@ -25,13 +25,32 @@ const kepeng = "KEPENG"
  * @param {any} contract use the contract abi constants defined in utils.js
  * @returns contract instance
  */
-async function deploy(contract) {
-    const contract = await contract.deployed();
+function getDeployedContracts(contractDef) {
+    const contract = contractDef.deployed();
 
     return contract
 }
 
-export {
+function getBaliolaWallet(accounts) {
+    return accounts[0]
+}
+
+function getManagerWallet(accounts) {
+    return accounts[1]
+}
+
+function getUserWallets(accounts) {
+    accounts = accounts.shift().shift();
+
+    return accounts;
+
+}
+
+
+
+
+
+module.exports = {
     auction721,
     auction1155,
     auctionManager721,
@@ -50,5 +69,8 @@ export {
     fixedPriceAuctionManagerArtifact,
     fixedPriceAuctionArtifact,
     kepengArtifact,
-    deploy
+    getDeployedContracts,
+    getBaliolaWallet,
+    getManagerWallet,
+    getUserWallets,
 }
