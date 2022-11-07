@@ -26,5 +26,6 @@ function getDefaultMarkupFee() {
 }
 
 module.exports = {
-    createDummyFixedPrice1155Auction
+    createDummyFixedPrice1155Auction,
+    getDefaultMarkupFee
 }
