@@ -1,7 +1,7 @@
-import { assert } from 'chai';
-import truffleAssert from "truffle-assertions"
-import * as helpers from "../helpers/truffle-time-helpers"
-import { fixedPriceAuctionManager } from '../../utils/utils';
+const { assert } = require("chai")
+const truffleAssert = require("truffle-assertions")
+const helpers = require("../helpers/truffle-time-helpers")
+const { fixedPriceAuctionManager } = require("../../utils/utils");
 
 contract(fixedPriceAuctionManager, async (accounts) => {
     it("lmao test", () => {

@@ -33,7 +33,7 @@ async function advanceTimeAndBlock(time) {
     return Promise.resolve(web3.eth.getBlock('latest'))
 }
 
-export default {
+module.exports = {
     advanceTime,
     advanceBlock,
     advanceTimeAndBlock,
