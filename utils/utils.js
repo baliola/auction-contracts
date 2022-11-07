@@ -39,6 +39,10 @@ function getManagerWallet(accounts) {
     return accounts[1]
 }
 
+function getDeployerWallet(accounts) {
+    return accounts[0]
+}
+
 function getUserWallets(accounts) {
     for (let i = 0; i < 2; i++) {
         accounts.shift()
@@ -46,10 +50,6 @@ function getUserWallets(accounts) {
     return accounts;
 
 }
-
-
-
-
 
 module.exports = {
     auction721,
@@ -74,4 +74,5 @@ module.exports = {
     getBaliolaWallet,
     getManagerWallet,
     getUserWallets,
+    getDeployerWallet
 }
