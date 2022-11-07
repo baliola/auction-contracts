@@ -1,5 +1,6 @@
 const { getDeployerWallet, getUserWallets, getDeployedContracts, nft1155Artifact, fixedPriceAuctionManagerArtifact } = require("../../utils/utils")
 
+const defaultAuctionIndex = 1;
 /**
  * the amount of nft will be auctioned default to 1 and 10000 for the price 
  */
@@ -31,5 +32,6 @@ function getDefaultMarkupFee() {
 
 module.exports = {
     createDummyFixedPrice1155Auction,
-    getDefaultMarkupFee
+    getDefaultMarkupFee,
+    defaultAuctionIndex
 }
