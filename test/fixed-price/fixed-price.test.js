@@ -30,12 +30,18 @@ contract(fixedPriceAuctionManager, async (accounts) => {
     it("should create auction", async () => {
         const auctionManager = await getDeployedContracts(fixedPriceAuctionManagerArtifact)
         const initAuctionsList = await auctionManager.getAuctions()
+        const users = getUserWallets(accounts)
 
-        await createDummyFixedPrice1155Auction(accounts)
+        await createDummyFixedPrice1155Auction(accounts, users[0])
 
         const currentAuctionList = await auctionManager.getAuctions()
 
         assert.strictEqual(currentAuctionList.length, initAuctionsList.length + 1)
+    })
+
+    it("should buy an nft from auction", async () => {
+        const users = getUserWallets(accounts)
+        await createDummyFixedPrice1155Auction(accounts)
     })
 
 })
