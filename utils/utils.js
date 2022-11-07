@@ -40,8 +40,9 @@ function getManagerWallet(accounts) {
 }
 
 function getUserWallets(accounts) {
-    accounts = accounts.shift().shift();
-
+    for (let i = 0; i < 2; i++) {
+        accounts.shift()
+    }
     return accounts;
 
 }
