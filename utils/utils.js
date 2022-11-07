@@ -26,7 +26,7 @@ const kepeng = "KEPENG"
  * @returns contract instance
  */
 function getDeployedContracts(contractArtifact) {
-    const contract = contractDef.deployed();
+    const contract = contractArtifact.deployed();
 
     return contract
 }
