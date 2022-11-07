@@ -20,6 +20,7 @@ const fixedPriceAuction = "AuctionFixedPrice1155"
 const fixedPriceAuctionManager = "FixedPriceAuctionManager1155"
 const kepeng = "KEPENG"
 
+
 /**
  * 
  * @param {any} contract use the contract abi constants defined in utils.js

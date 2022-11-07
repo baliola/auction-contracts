@@ -3,6 +3,7 @@ const truffleAssert = require("truffle-assertions")
 const helpers = require("../helpers/truffle-time.helpers")
 const { fixedPriceAuctionManager, getManagerWallet, getUserWallets, getDeployedContracts, fixedPriceAuctionManagerArtifact, nft1155, nft1155Artifact, getDeployerWallet } = require("../../utils/utils");
 const { createDummyFixedPrice1155Auction } = require("../helpers/auction.helpers");
+const { transferKepengFromDeployer } = require("../helpers/kepeng.helpers");
 
 // IMPORTANT : always use assert.strictEqual when asserting condition
 
@@ -41,7 +42,13 @@ contract(fixedPriceAuctionManager, async (accounts) => {
 
     it("should buy an nft from auction", async () => {
         const users = getUserWallets(accounts)
-        await createDummyFixedPrice1155Auction(accounts)
+        const user = users[0]
+        const buyer = users[1]
+        const markupFee =
+
+            await createDummyFixedPrice1155Auction(accounts, users[0])
+        await transferKepengFromDeployer(accounts, buyer)
     })
+
 
 })
