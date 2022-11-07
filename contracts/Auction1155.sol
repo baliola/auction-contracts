@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "./kepeng.sol";
 
-contract Auction is ERC1155Holder {
+contract Auction1155 is ERC1155Holder {
     using SafeMath for uint256;
     uint256 public endTime; // Timestamp of the end of the auction (in seconds)
     uint256 public startTime; // The block timestamp which marks the start of the auction

@@ -1,4 +1,4 @@
-advanceTime = (time) => {
+function advanceTime(time) {
     return new Promise((resolve, reject) => {
         web3.currentProvider.send({
             jsonrpc: '2.0',
@@ -12,7 +12,7 @@ advanceTime = (time) => {
     })
 }
 
-advanceBlock = () => {
+function advanceBlock() {
     return new Promise((resolve, reject) => {
         web3.currentProvider.send({
             jsonrpc: '2.0',
@@ -27,13 +27,13 @@ advanceBlock = () => {
     })
 }
 
-advanceTimeAndBlock = async (time) => {
+async function advanceTimeAndBlock(time) {
     await advanceTime(time)
     await advanceBlock()
     return Promise.resolve(web3.eth.getBlock('latest'))
 }
 
-module.exports = {
+export default {
     advanceTime,
     advanceBlock,
     advanceTimeAndBlock,
