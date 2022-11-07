@@ -25,7 +25,7 @@ const kepeng = "KEPENG"
  * @param {any} contract use the contract abi constants defined in utils.js
  * @returns contract instance
  */
-function getDeployedContracts(contractDef) {
+function getDeployedContracts(contractArtifact) {
     const contract = contractDef.deployed();
 
     return contract
