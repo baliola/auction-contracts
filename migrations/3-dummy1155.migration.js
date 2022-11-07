@@ -1,6 +1,7 @@
-const { nft1155Artifact } = require("../utils/utils")
+const { nft1155Artifact, getDeployerWallet } = require("../utils/utils")
 
-module.exports = async function (deployers) {
+module.exports = async function (deployers, network, accounts) {
     const contractName = "Dummy1155"
-    await deployers.deploy(nft1155Artifact, contractName)
+    const deployerWallet = getDeployerWallet(accounts)
+    await deployers.deploy(nft1155Artifact, contractName, { from: deployerWallet })
 }
