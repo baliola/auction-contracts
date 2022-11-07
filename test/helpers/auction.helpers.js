@@ -1,6 +1,10 @@
 const { getDeployerWallet, getUserWallets, getDeployedContracts, nft1155Artifact, fixedPriceAuctionManagerArtifact } = require("../../utils/utils")
 
+/**
+ * the amount of nft will be auctioned default to 1 and 10000 for the price 
+ */
 async function createDummyFixedPrice1155Auction(accounts, nftSellerAddress) {
+    // TODO : customize price and nft amount 
     const price = 1e4
     const deployer = getDeployerWallet(accounts)
     const nft1155Contract = await getDeployedContracts(nft1155Artifact)
