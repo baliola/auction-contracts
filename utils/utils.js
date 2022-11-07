@@ -54,6 +54,10 @@ function getDeployerWallet(accounts) {
     return accounts[0]
 }
 
+/**
+ * 
+ * @returns all dummy user accounts
+ */
 function getUserWallets(accounts) {
     for (let i = 0; i < 2; i++) {
         accounts.shift()
