@@ -1,3 +1,3 @@
 ### TESTING IS STILL IN WIP
 
-for testing guide visit openzeppelin docs [here](https://docs.openzeppelin.com/learn/writing-automated-tests?pref=truffle)
+for testing guide visit truffle docs [here](https://trufflesuite.com/docs/truffle/)
