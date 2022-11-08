@@ -18,6 +18,8 @@ const { AuctionHelper } = require("../helpers/auction.helpers");
 const { transferKepengFromDeployer } = require("../helpers/kepeng.helpers");
 const { balanceOf1155 } = require("../helpers/nft1155.helpers");
 const { ContractFactory } = require("../helpers/factory.helpers");
+const { COMMON_AUCTION_ERRORS } = require("../../utils/require-errors/common/common-auction.errors");
+const { COMMON_MANAGER_ERRORS } = require("../../utils/require-errors/common/common-auction-manager.errors");
 
 // IMPORTANT : always use assert.strictEqual when asserting condition
 
@@ -31,17 +33,13 @@ contract(fixedPriceAuctionManager, async (accounts) => {
         const kepeng = await getDeployedContracts(kepengArtifact)
         const baliolaWallet = getBaliolaWallet(accounts)
         const newManager = userAccounts[0]
-        const newBaliolaWallet = userAccounts[1]
-
-        const managerError = "only manager can call this function"
-
         const contract = await contractFactory.makeFixedPrice1155Manager(currentManager, kepeng.address, baliolaWallet, currentManager, { from: currentManager })
         const changeManager = await contract.changeManager(newManager, currentManager);
 
         try {
             const tryChangeManager = await contract.changeManager(currentManager, currentManager)
         } catch (error) {
-            assert.strictEqual(error.reason, managerError)
+            assert.strictEqual(error.reason, COMMON_MANAGER_ERRORS.ONLY_MANAGER)
         }
 
     })
