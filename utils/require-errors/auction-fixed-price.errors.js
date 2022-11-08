@@ -1,0 +1,5 @@
+const ONLY_CREATOR_CAN_REFILL = "only creator can refill"
+const OUT_OF_SUPPLY = "out of supply! no nft is being selled!"
+const NOT_ENOUGH_NFT = "not enough available nft!"
+const CAN_ONLY_BUY_IF_AUCTION_OPEN = "can only buy nft when auction is open!"
+const CAN_ONLY_BUY_IF_FEE_IS_CORRECT = "can only buy if the fee is correct!"
