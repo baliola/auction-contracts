@@ -11,3 +11,11 @@ for testing guide visit truffle docs [here](https://trufflesuite.com/docs/truffl
 # notes
 
 if you want to run the tests without recompiling run `npm run test-fast` in the terminal.
+
+test modifier first, then `require` statements, and then conditional such as `if` and `else`, and then assert the events.
+
+when comparing require error statements, make sure to call `.trim()` method on error strings to avoid whitespace issues.
+
+when asserting `require` errors, use the error definitions on the utils directory
+
+also, it is recommended to tests and asserts return statements.
