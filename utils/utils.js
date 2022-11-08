@@ -71,6 +71,12 @@ function getUserWallets(accounts) {
 
 }
 
+function instantiateAuctionContractAtAddress(address) {
+    const auction = await fixedPriceAuctionArtifact.at(address);
+
+    return auction
+}
+
 module.exports = {
     auction721,
     auction1155,
@@ -95,5 +101,6 @@ module.exports = {
     getBaliolaWallet,
     getManagerWallet,
     getUserWallets,
-    getDeployerWallet
+    getDeployerWallet,
+    instantiateAuctionContractAtAddress
 }
