@@ -214,7 +214,7 @@ contract Auction1155 is ERC1155Holder {
             getAuctionState() == AuctionState.ENDED ||
                 getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
-            "The auction must be ended by either a direct buy, by creator, or timeout "
+            "The auction must be ended by either a direct buy, by creator, or timeout"
         ); // The auction must be ended by either a direct buy or timeout
 
         require(
@@ -256,7 +256,13 @@ contract Auction1155 is ERC1155Holder {
         ); // The auction must be open
         isCancelled = true; // The auction has been cancelled
 
-        nft1155.safeTransferFrom(address(this), maxBidder, tokenId, nftAmount, ""); // Transfer the token to the highest bidder
+        nft1155.safeTransferFrom(
+            address(this),
+            maxBidder,
+            tokenId,
+            nftAmount,
+            ""
+        ); // Transfer the token to the highest bidder
         kepeng.transfer(maxBidder, maxBid);
         emit AuctionCanceled(); // Emit Auction Canceled event
         return true;
