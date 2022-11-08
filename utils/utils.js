@@ -98,6 +98,8 @@ module.exports = {
     fixedPriceAuctionArtifact,
     kepengArtifact,
     kepengDecimals,
+    defaultAuctionIndex,
+    defaultNftAMount,
     getDeployedContracts,
     getBaliolaWallet,
     getManagerWallet,
