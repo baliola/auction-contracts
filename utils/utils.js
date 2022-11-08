@@ -26,6 +26,8 @@ const kepengDecimals = 1e4;
 const defaultAuctionIndex = 1;
 const defaultNftAMount = 1;
 
+const defaultNftTokenId = 0;
+
 /**
  * 
  * @param {any} contract use the contract abi constants defined in utils.js
@@ -100,6 +102,7 @@ module.exports = {
     kepengDecimals,
     defaultAuctionIndex,
     defaultNftAMount,
+    defaultNftTokenId,
     getDeployedContracts,
     getBaliolaWallet,
     getManagerWallet,
