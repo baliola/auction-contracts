@@ -2,7 +2,7 @@ const { getDeployerWallet, getUserWallets, getDeployedContracts, nft1155Artifact
 
 const defaultAuctionIndex = 1;
 /**
- * the amount of nft will be auctioned default to 1 and 10000 for the price 
+ * the amount of nft will be auctioned default to 1 and 10000(1 KPG) for the price 
  */
 async function createDummyFixedPrice1155Auction(accounts, nftSellerAddress) {
     // TODO : customize price and nft amount 
