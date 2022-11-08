@@ -8,12 +8,17 @@ const { fixedPriceAuctionManager,
     fixedPriceAuctionManagerArtifact,
     nft1155,
     nft1155Artifact,
-    getDeployerWallet
+    getDeployerWallet,
+    kepengDecimals,
+    defaultNftTokenId
 } = require("../../utils/utils");
-const { createDummyFixedPrice1155Auction, getDefaultMarkupFee } = require("../helpers/auction.helpers");
+const { AuctionHelper } = require("../helpers/auction.helpers");
 const { transferKepengFromDeployer } = require("../helpers/kepeng.helpers");
+const { balanceOf1155 } = require("../helpers/nft1155.helpers");
 
 // IMPORTANT : always use assert.strictEqual when asserting condition
+
+const auctionHelper = new AuctionHelper()
 
 contract(fixedPriceAuctionManager, async (accounts) => {
     it("should change manager", async () => {
@@ -41,7 +46,7 @@ contract(fixedPriceAuctionManager, async (accounts) => {
         const initAuctionsList = await auctionManager.getAuctions()
         const users = getUserWallets(accounts)
 
-        await createDummyFixedPrice1155Auction(accounts, users[0])
+        await auctionHelper.createDummyFixedPrice1155Auction(accounts, users[0])
 
         const currentAuctionList = await auctionManager.getAuctions()
 
@@ -50,12 +55,19 @@ contract(fixedPriceAuctionManager, async (accounts) => {
 
     it("should buy an nft from auction", async () => {
         const users = getUserWallets(accounts)
-        const user = users[0]
+        const nftSeller = users[0]
+        const amount = 4;
+        const kepengAmount = kepengDecimals * amount;
         const buyer = users[1]
-        const markupFee = getDefaultMarkupFee()
+        const initBuyerBalance = balanceOf1155(buyer, defaultNftTokenId)
 
-        await createDummyFixedPrice1155Auction(accounts, users[0])
-        await transferKepengFromDeployer(accounts, buyer)
+        await transferKepengFromDeployer(accounts, buyer, kepengAmount)
+        await auctionHelper.createDummyFixedPrice1155Auction(accounts, nftSeller)
+        await auctionHelper.buyNftFromAuction(buyer)
+
+        const currentBuyerBalance = balanceOf1155(buyer, defaultNftTokenId)
+
+        assert.strictEqual(currentBuyerBalance, initBuyerBalance + 1)
     })
 
 

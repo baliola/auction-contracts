@@ -74,7 +74,7 @@ function getUserWallets(accounts) {
 
 }
 
-function instantiateAuctionContractAtAddress(address) {
+async function instantiateAuctionContractAtAddress(address) {
     const auction = await fixedPriceAuctionArtifact.at(address);
 
     return auction
