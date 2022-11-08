@@ -8,93 +8,93 @@ class Auction721 {
     this.contractAddress = contract.address;
   }
 
-  async baliolaWallet() {
-    const tx = await this.contractInstance.baliolaWallet();
+  async baliolaWallet(fromAddress) {
+    const tx = await this.contractInstance.baliolaWallet({ from: fromAddress });
     return tx;
   }
 
-  async bids(argv1) {
-    const tx = await this.contractInstance.bids(argv1);
+  async bids(argv1, fromAddress) {
+    const tx = await this.contractInstance.bids(argv1, { from: fromAddress });
     return tx;
   }
 
-  async creator() {
-    const tx = await this.contractInstance.creator();
+  async creator(fromAddress) {
+    const tx = await this.contractInstance.creator({ from: fromAddress });
     return tx;
   }
 
-  async directBuyPrice() {
-    const tx = await this.contractInstance.directBuyPrice();
+  async directBuyPrice(fromAddress) {
+    const tx = await this.contractInstance.directBuyPrice({ from: fromAddress });
     return tx;
   }
 
-  async directBuyStatus() {
-    const tx = await this.contractInstance.directBuyStatus();
+  async directBuyStatus(fromAddress) {
+    const tx = await this.contractInstance.directBuyStatus({ from: fromAddress });
     return tx;
   }
 
-  async endTime() {
-    const tx = await this.contractInstance.endTime();
+  async endTime(fromAddress) {
+    const tx = await this.contractInstance.endTime({ from: fromAddress });
     return tx;
   }
 
-  async isCancelled() {
-    const tx = await this.contractInstance.isCancelled();
+  async isCancelled(fromAddress) {
+    const tx = await this.contractInstance.isCancelled({ from: fromAddress });
     return tx;
   }
 
-  async isDirectBuy() {
-    const tx = await this.contractInstance.isDirectBuy();
+  async isDirectBuy(fromAddress) {
+    const tx = await this.contractInstance.isDirectBuy({ from: fromAddress });
     return tx;
   }
 
-  async isEndedByCreator() {
-    const tx = await this.contractInstance.isEndedByCreator();
+  async isEndedByCreator(fromAddress) {
+    const tx = await this.contractInstance.isEndedByCreator({ from: fromAddress });
     return tx;
   }
 
-  async manager() {
-    const tx = await this.contractInstance.manager();
+  async manager(fromAddress) {
+    const tx = await this.contractInstance.manager({ from: fromAddress });
     return tx;
   }
 
-  async maxBid() {
-    const tx = await this.contractInstance.maxBid();
+  async maxBid(fromAddress) {
+    const tx = await this.contractInstance.maxBid({ from: fromAddress });
     return tx;
   }
 
-  async maxBidder() {
-    const tx = await this.contractInstance.maxBidder();
+  async maxBidder(fromAddress) {
+    const tx = await this.contractInstance.maxBidder({ from: fromAddress });
     return tx;
   }
 
-  async minIncrement() {
-    const tx = await this.contractInstance.minIncrement();
+  async minIncrement(fromAddress) {
+    const tx = await this.contractInstance.minIncrement({ from: fromAddress });
     return tx;
   }
 
-  async nftAddress() {
-    const tx = await this.contractInstance.nftAddress();
+  async nftAddress(fromAddress) {
+    const tx = await this.contractInstance.nftAddress({ from: fromAddress });
     return tx;
   }
 
-  async nftSeller() {
-    const tx = await this.contractInstance.nftSeller();
+  async nftSeller(fromAddress) {
+    const tx = await this.contractInstance.nftSeller({ from: fromAddress });
     return tx;
   }
 
-  async startPrice() {
-    const tx = await this.contractInstance.startPrice();
+  async startPrice(fromAddress) {
+    const tx = await this.contractInstance.startPrice({ from: fromAddress });
     return tx;
   }
 
-  async startTime() {
-    const tx = await this.contractInstance.startTime();
+  async startTime(fromAddress) {
+    const tx = await this.contractInstance.startTime({ from: fromAddress });
     return tx;
   }
 
-  async tokenId() {
-    const tx = await this.contractInstance.tokenId();
+  async tokenId(fromAddress) {
+    const tx = await this.contractInstance.tokenId({ from: fromAddress });
     return tx;
   }
 
@@ -103,38 +103,38 @@ class Auction721 {
     return tx;
   }
 
-  async allBids() {
-    const tx = await this.contractInstance.allBids();
+  async allBids(fromAddress) {
+    const tx = await this.contractInstance.allBids({ from: fromAddress });
     return tx;
   }
 
-  async placeBid(bidder, bidAmount) {
-    const tx = await this.contractInstance.placeBid(bidder, bidAmount);
+  async placeBid(bidder, bidAmount, fromAddress) {
+    const tx = await this.contractInstance.placeBid(bidder, bidAmount, { from: fromAddress });
     return tx;
   }
 
-  async withdrawToken() {
-    const tx = await this.contractInstance.withdrawToken();
+  async withdrawToken(fromAddress) {
+    const tx = await this.contractInstance.withdrawToken({ from: fromAddress });
     return tx;
   }
 
-  async withdrawFunds() {
-    const tx = await this.contractInstance.withdrawFunds();
+  async withdrawFunds(fromAddress) {
+    const tx = await this.contractInstance.withdrawFunds({ from: fromAddress });
     return tx;
   }
 
-  async endAuctionByCreator() {
-    const tx = await this.contractInstance.endAuctionByCreator();
+  async endAuctionByCreator(fromAddress) {
+    const tx = await this.contractInstance.endAuctionByCreator({ from: fromAddress });
     return tx;
   }
 
-  async cancelAuction() {
-    const tx = await this.contractInstance.cancelAuction();
+  async cancelAuction(fromAddress) {
+    const tx = await this.contractInstance.cancelAuction({ from: fromAddress });
     return tx;
   }
 
-  async getAuctionState() {
-    const tx = await this.contractInstance.getAuctionState();
+  async getAuctionState(fromAddress) {
+    const tx = await this.contractInstance.getAuctionState({ from: fromAddress });
     return tx;
   }
 

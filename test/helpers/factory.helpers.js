@@ -10,7 +10,6 @@ const { FixedPriceAuctionManager1155 } = require("./bindings/fixed-auction-manag
 const { KEPENG } = require("./bindings/KEPENG");
 
 class ContractFactory {
-
     /**
      * this is a low level api for deploying new auction contract, you might not need this
      * 
@@ -25,7 +24,7 @@ class ContractFactory {
      * @param {number} nftTokenId 
      * @param {any} kepengContractInstance 
      * @param {string} nftSellerAddress 
-     * @returns {Auction721} auction 721 contract instance
+     * @returns {Promise<Auction721>} fixed price 1155 manager instance auction 721 contract instance
      */
     async make721Auction(
         deployerAddress,
@@ -70,7 +69,7 @@ class ContractFactory {
      * @param {number} nftAmount 
      * @param {any} kepengContractInstance 
      * @param {string} nftSellerAddress 
-     * @returns {Auction1155} auction 1155 contract instance
+     * @returns {Promise<Auction1155>} fixed price 1155 manager instance auction 1155 contract instance
      */
     async make1155Auction(
         deployerAddress,
@@ -110,7 +109,7 @@ class ContractFactory {
      * @param {string} kepengSmartContractAddress 
      * @param {string} baliolaWallet 
      * @param {string} managerAddress 
-     * @returns {AuctionManager721} auction 721 manager instance
+     * @returns {Promise<AuctionManager721>} fixed price 1155 manager instance auction 721 manager instance
      */
     async make721AuctionManager(deployerAddress, kepengSmartContractAddress, baliolaWallet, managerAddress) {
         const contract = await auctionManager721Artifact.new(
@@ -128,7 +127,7 @@ class ContractFactory {
      * @param {string} kepengSmartContractAddress 
      * @param {string} baliolaWallet 
      * @param {string} managerAddress 
-     * @returns {AuctionManager1155} auction 1155 manager instance
+     * @returns {Promise<AuctionManager1155>} fixed price 1155 manager instance auction 1155 manager instance
      */
     async make1155AuctionManager(deployerAddress, kepengSmartContractAddress, baliolaWallet, managerAddress) {
         const contract = await auctionManager1155Artifact.new(
@@ -143,7 +142,7 @@ class ContractFactory {
 
     /**
      * 
-     * @returns {Dummy721} dummy nft 721 contract instance
+     * @returns {Promise<Dummy721>} fixed price 1155 manager instance dummy nft 721 contract instance
      */
     async makeDummy721Nft() {
         const contract = await nft721Artifact.new()
@@ -154,7 +153,7 @@ class ContractFactory {
     /**
      * 
      * @param {string} deployerAddress 
-     * @returns {Dummy1155} dummy nft 1155 contract instance
+     * @returns {Promise<Dummy1155>} fixed price 1155 manager instance dummy nft 1155 contract instance
      */
     async makeDummy1155Nft(deployerAddress) {
         const contract = await nft1155Artifact.new({ from: deployerAddress })
@@ -175,7 +174,7 @@ class ContractFactory {
      * @param {number} price 
      * @param {any} kepengContractInstance 
      * @param {string} nftSellerAddress 
-     * @returns {AuctionFixedPrice1155} fixed price 1155 contract instance
+     * @returns {Promise<AuctionFixedPrice1155>} fixed price 1155 manager instance fixed price 1155 contract instance
      */
     async makeFixedPrice1155(
         deployerAddress,
@@ -207,7 +206,7 @@ class ContractFactory {
      * @param {string} kepengSmartContractAddress 
      * @param {string} baliolaWallet 
      * @param {string} managerAddress 
-     * @returns  {FixedPriceAuctionManager1155} fixed price 1155 manager instance
+     * @returns  {Promise<FixedPriceAuctionManager1155>} fixed price 1155 manager instance 
      */
     async makeFixedPrice1155Manager(
         deployerAddress,
@@ -225,7 +224,7 @@ class ContractFactory {
 
     }
     /**
-     * @returns {KEPENG} kepeng contract instance
+     * @returns {Promise<KEPENG>} fixed price 1155 manager instance kepeng contract instance
      */
     async makeKepeng() {
         const contract = await kepengArtifact.new()

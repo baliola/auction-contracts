@@ -3,6 +3,8 @@ import Writer from "smartcontract-type-binding-generator/dist/implementation/wri
 import * as fs from "fs-extra";
 import * as path from "path";
 
+// IMPORTANT : DON'T RUN THIS SCRIPT
+
 async function main() {
   const writer = new Writer();
   const parser = new Parser();

@@ -10,11 +10,14 @@ const { fixedPriceAuctionManager,
     nft1155Artifact,
     getDeployerWallet,
     kepengDecimals,
-    defaultNftTokenId
+    defaultNftTokenId,
+    kepengArtifact,
+    getBaliolaWallet
 } = require("../../utils/utils");
 const { AuctionHelper } = require("../helpers/auction.helpers");
 const { transferKepengFromDeployer } = require("../helpers/kepeng.helpers");
 const { balanceOf1155 } = require("../helpers/nft1155.helpers");
+const { ContractFactory } = require("../helpers/factory.helpers");
 
 // IMPORTANT : always use assert.strictEqual when asserting condition
 
@@ -22,18 +25,21 @@ const auctionHelper = new AuctionHelper()
 
 contract(fixedPriceAuctionManager, async (accounts) => {
     it("should change manager", async () => {
+        const contractFactory = new ContractFactory()
         const currentManager = getManagerWallet(accounts)
         const userAccounts = getUserWallets(accounts)
+        const kepeng = await getDeployedContracts(kepengArtifact)
+        const baliolaWallet = getBaliolaWallet(accounts)
         const newManager = userAccounts[0]
         const newBaliolaWallet = userAccounts[1]
 
         const managerError = "only manager can call this function"
 
-        const contract = await getDeployedContracts(fixedPriceAuctionManagerArtifact)
-        const changeManager = await contract.changeManager(newManager, { from: currentManager });
+        const contract = await contractFactory.makeFixedPrice1155Manager(currentManager, kepeng.address, baliolaWallet, currentManager, { from: currentManager })
+        const changeManager = await contract.changeManager(newManager, currentManager);
 
         try {
-            const tryChangeManager = await contract.changeManager(currentManager, { from: currentManager })
+            const tryChangeManager = await contract.changeManager(currentManager, currentManager)
         } catch (error) {
             assert.strictEqual(error.reason, managerError)
         }

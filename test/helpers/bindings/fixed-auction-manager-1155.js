@@ -37,8 +37,8 @@ class FixedPriceAuctionManager1155 {
     return tx;
   }
 
-  async changeManager(newManager) {
-    const tx = await this.contractInstance.changeManager(newManager);
+  async changeManager(newManager, fromAddress) {
+    const tx = await this.contractInstance.changeManager(newManager, { from: fromAddress });
     return tx;
   }
 
