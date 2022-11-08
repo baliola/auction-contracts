@@ -21,6 +21,8 @@ const fixedPriceAuctionManager = "FixedPriceAuctionManager1155"
 const kepeng = "KEPENG"
 
 
+const kepengDecimals = 1e4;
+
 /**
  * 
  * @param {any} contract use the contract abi constants defined in utils.js
@@ -86,6 +88,7 @@ module.exports = {
     fixedPriceAuctionManagerArtifact,
     fixedPriceAuctionArtifact,
     kepengArtifact,
+    kepengDecimals,
     getDeployedContracts,
     getBaliolaWallet,
     getManagerWallet,
