@@ -1,12 +1,11 @@
-import * as ethers from "ethers"
 
-export default class Dummy1155 {
+class Dummy1155 {
   contractInstance
   contractAddress
 
-  constructor(contractAddress, abi) {
-    this.contractInstance = new ethers.Contract(contractAddress, abi);
-    this.contractAddress = contractAddress;
+  constructor(contract) {
+    this.contractInstance = contract;
+    this.contractAddress = contract.address;
   }
 
   async DEFAULT_ADMIN_ROLE() {
@@ -154,4 +153,7 @@ export default class Dummy1155 {
     return tx;
   }
 
+}
+module.exports = {
+  Dummy1155
 }

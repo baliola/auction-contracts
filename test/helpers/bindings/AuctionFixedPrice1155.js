@@ -1,12 +1,11 @@
-import * as ethers from "ethers"
 
-export default class AuctionFixedPrice1155 {
+class AuctionFixedPrice1155 {
   contractInstance
   contractAddress
 
-  constructor(contractAddress, abi) {
-    this.contractInstance = new ethers.Contract(contractAddress, abi);
-    this.contractAddress = contractAddress;
+  constructor(contract) {
+    this.contractInstance = contract;
+    this.contractAddress = contract.address;
   }
 
   async availableNFT() {
@@ -114,4 +113,8 @@ export default class AuctionFixedPrice1155 {
     return tx;
   }
 
+}
+
+module.exports = {
+  AuctionFixedPrice1155
 }

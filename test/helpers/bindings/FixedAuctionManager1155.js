@@ -1,12 +1,10 @@
-import * as ethers from "ethers"
-
-export default class AuctionManager1155 {
+class FixedPriceAuctionManager1155 {
   contractInstance
   contractAddress
 
-  constructor(contractAddress, abi) {
-    this.contractInstance = new ethers.Contract(contractAddress, abi);
-    this.contractAddress = contractAddress;
+  constructor(contract) {
+    this.contractInstance = contract;
+    this.contractAddress = contract.address;
   }
 
   async auctionsByAddress(argv1) {
@@ -69,4 +67,7 @@ export default class AuctionManager1155 {
     return tx;
   }
 
+}
+module.exports = {
+  FixedPriceAuctionManager1155
 }

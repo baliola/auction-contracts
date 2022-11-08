@@ -30,7 +30,6 @@ contract(fixedPriceAuctionManager, async (accounts) => {
         const managerError = "only manager can call this function"
 
         const contract = await getDeployedContracts(fixedPriceAuctionManagerArtifact)
-
         const changeManager = await contract.changeManager(newManager, { from: currentManager });
 
         try {
