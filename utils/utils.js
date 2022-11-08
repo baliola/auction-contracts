@@ -23,6 +23,8 @@ const kepeng = "KEPENG"
 
 const kepengDecimals = 1e4;
 
+const defaultAuctionIndex = 1;
+
 /**
  * 
  * @param {any} contract use the contract abi constants defined in utils.js
