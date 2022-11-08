@@ -23,7 +23,7 @@ async function createDummyFixedPrice1155Auction(accounts, nftSellerAddress) {
 /**
  * this function will use default auction index for getting the underlying auction contract
  * 
- * @param  user address 
+ * @param  {string} user address 
  * @returns void
  */
 async function buyNftFromAuction(user) {
@@ -37,8 +37,8 @@ async function buyNftFromAuction(user) {
 }
 
 /**
- * @param {*} address user address
- * @param {*} amount the amount to be approved
+ * @param {string} address user address
+ * @param {number} amount the amount to be approved
  * @returns void
  * 
  * approve auction manager for spending kepeng. 
@@ -51,6 +51,10 @@ async function approveFixedPriceAuctionManager(address, amount) {
     return;
 }
 
+/**
+ * 
+ * @returns {number} default markup fee
+ */
 function getDefaultMarkupFee() {
     const defaultFee = 1e4
     const markupFee = 3 / 100
