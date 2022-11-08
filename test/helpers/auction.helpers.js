@@ -4,9 +4,6 @@ const { balanceOf1155 } = require("./nft1155.helpers");
 const defaultAuctionIndex = 1;
 
 class AuctionHelper {
-    constructor() {
-
-    }
 
     /**
     * 
