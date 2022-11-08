@@ -17,7 +17,7 @@ async function createDummyFixedPrice1155Auction(accounts, nftSellerAddress) {
     await nft1155Contract.setApprovalForAll(auctionManager.address, true, { from: nftSellerAddress })
 
     // create auction
-    await auctionManager.createAuction(price, nft1155Contract.address, nftTokenId, nftAmount, nftSellerAddress, { from: nftSellerAddress })
+    await auctionManager.createAuction(price, nft1155Contract.address, nftTokenId, defaultNftAMount, nftSellerAddress, { from: nftSellerAddress })
 }
 
 /**
