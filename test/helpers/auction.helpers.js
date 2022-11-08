@@ -20,14 +20,29 @@ async function createDummyFixedPrice1155Auction(accounts, nftSellerAddress) {
     await auctionManager.createAuction(price, nft1155Contract.address, nftTokenId, nftAmount, nftSellerAddress, { from: nftSellerAddress })
 }
 
+/**
+ * this function will use default auction index for getting the underlying auction contract
+ * 
+ * @param  user address 
+ * @returns void
+ */
 async function buyNftFromAuction(user) {
     const auctionManager = getDeployedContracts(fixedPriceAuctionManagerArtifact)
     const fee = getDefaultMarkupFee()
 
+    await approveFixedPriceAuctionManager(user, fee)
     await auctionManager.buy(defaultAuctionIndex, fee, defaultNftAMount)
 
+    return;
 }
 
+/**
+ * @param {*} address user address
+ * @param {*} amount the amount to be approved
+ * @returns void
+ * 
+ * approve auction manager for spending kepeng. 
+ */
 async function approveFixedPriceAuctionManager(address, amount) {
     const auctionManager = getDeployedContracts(fixedPriceAuctionManagerArtifact)
     const kepengContract = getDeployedContracts(kepengArtifact)
@@ -48,5 +63,7 @@ function getDefaultMarkupFee() {
 module.exports = {
     createDummyFixedPrice1155Auction,
     getDefaultMarkupFee,
+    buyNftFromAuction,
+    approveFixedPriceAuctionManager,
     defaultAuctionIndex
 }
