@@ -8,58 +8,58 @@ class Auction {
     this.contractAddress = contract.address;
   }
 
-  async availableNFT() {
-    const tx = await this.contractInstance.availableNFT();
+  async availableNFT(fromAddress) {
+    const tx = await this.contractInstance.availableNFT({ from: fromAddress });
     return tx;
   }
 
-  async baliolaWallet() {
-    const tx = await this.contractInstance.baliolaWallet();
+  async baliolaWallet(fromAddress) {
+    const tx = await this.contractInstance.baliolaWallet({ from: fromAddress });
     return tx;
   }
 
-  async buyers(argv1) {
-    const tx = await this.contractInstance.buyers(argv1);
+  async buyers(argv1, fromAddress) {
+    const tx = await this.contractInstance.buyers(argv1, { from: fromAddress });
     return tx;
   }
 
-  async creator() {
-    const tx = await this.contractInstance.creator();
+  async creator(fromAddress) {
+    const tx = await this.contractInstance.creator({ from: fromAddress });
     return tx;
   }
 
-  async index() {
-    const tx = await this.contractInstance.index();
+  async index(fromAddress) {
+    const tx = await this.contractInstance.index({ from: fromAddress });
     return tx;
   }
 
-  async initialNftAmount() {
-    const tx = await this.contractInstance.initialNftAmount();
+  async initialNftAmount(fromAddress) {
+    const tx = await this.contractInstance.initialNftAmount({ from: fromAddress });
     return tx;
   }
 
-  async isEnded() {
-    const tx = await this.contractInstance.isEnded();
+  async isEnded(fromAddress) {
+    const tx = await this.contractInstance.isEnded({ from: fromAddress });
     return tx;
   }
 
-  async isEndedByCreator() {
-    const tx = await this.contractInstance.isEndedByCreator();
+  async isEndedByCreator(fromAddress) {
+    const tx = await this.contractInstance.isEndedByCreator({ from: fromAddress });
     return tx;
   }
 
-  async manager() {
-    const tx = await this.contractInstance.manager();
+  async manager(fromAddress) {
+    const tx = await this.contractInstance.manager({ from: fromAddress });
     return tx;
   }
 
-  async nftAddress() {
-    const tx = await this.contractInstance.nftAddress();
+  async nftAddress(fromAddress) {
+    const tx = await this.contractInstance.nftAddress({ from: fromAddress });
     return tx;
   }
 
-  async nftSeller() {
-    const tx = await this.contractInstance.nftSeller();
+  async nftSeller(fromAddress) {
+    const tx = await this.contractInstance.nftSeller({ from: fromAddress });
     return tx;
   }
 
@@ -73,8 +73,8 @@ class Auction {
     return tx;
   }
 
-  async price() {
-    const tx = await this.contractInstance.price();
+  async price(fromAddress) {
+    const tx = await this.contractInstance.price({ from: fromAddress });
     return tx;
   }
 
@@ -83,33 +83,33 @@ class Auction {
     return tx;
   }
 
-  async tokenId() {
-    const tx = await this.contractInstance.tokenId();
+  async tokenId(fromAddress) {
+    const tx = await this.contractInstance.tokenId({ from: fromAddress });
     return tx;
   }
 
-  async GetAllBuyers() {
-    const tx = await this.contractInstance.GetAllBuyers();
+  async GetAllBuyers(fromAddress) {
+    const tx = await this.contractInstance.GetAllBuyers({ from: fromAddress });
     return tx;
   }
 
-  async refill(_creator, amount) {
-    const tx = await this.contractInstance.refill(_creator, amount);
+  async refill(_creator, amount, fromAddress) {
+    const tx = await this.contractInstance.refill(_creator, amount, { from: fromAddress });
     return tx;
   }
 
-  async buy(_buyer, _amount, txFee) {
-    const tx = await this.contractInstance.buy(_buyer, _amount, txFee);
+  async buy(_buyer, _amount, txFee, fromAddress) {
+    const tx = await this.contractInstance.buy(_buyer, _amount, txFee, { from: fromAddress });
     return tx;
   }
 
-  async EndAuction() {
-    const tx = await this.contractInstance.EndAuction();
+  async EndAuction(fromAddress) {
+    const tx = await this.contractInstance.EndAuction({ from: fromAddress });
     return tx;
   }
 
-  async getAuctionState() {
-    const tx = await this.contractInstance.getAuctionState();
+  async getAuctionState(fromAddress) {
+    const tx = await this.contractInstance.getAuctionState({ from: fromAddress });
     return tx;
   }
 
