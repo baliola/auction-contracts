@@ -24,6 +24,7 @@ const kepeng = "KEPENG"
 const kepengDecimals = 1e4;
 
 const defaultAuctionIndex = 1;
+const defaultNftAMount = 1;
 
 /**
  * 
