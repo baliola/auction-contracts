@@ -8,18 +8,19 @@ class AuctionManager1155 {
     this.contractAddress = contract.address;
   }
 
-  async auctionsByAddress(argv1) {
-    const tx = await this.contractInstance.auctionsByAddress(argv1);
+  async auctionsByAddress(argv1, fromAddress
+  ) {
+    const tx = await this.contractInstance.auctionsByAddress(argv1, { from: fromAddress });
     return tx;
   }
 
-  async auctionsByIndex(argv1) {
-    const tx = await this.contractInstance.auctionsByIndex(argv1);
+  async auctionsByIndex(argv1, fromAddress) {
+    const tx = await this.contractInstance.auctionsByIndex(argv1, { from: fromAddress });
     return tx;
   }
 
-  async auctionsUser(argv1, argv2) {
-    const tx = await this.contractInstance.auctionsUser(argv1, argv2);
+  async auctionsUser(argv1, argv2, fromAddress) {
+    const tx = await this.contractInstance.auctionsUser(argv1, argv2, { from: fromAddress });
     return tx;
   }
 
@@ -38,38 +39,38 @@ class AuctionManager1155 {
     return tx;
   }
 
-  async changeManager(newManager) {
-    const tx = await this.contractInstance.changeManager(newManager);
+  async changeManager(newManager, fromAddress) {
+    const tx = await this.contractInstance.changeManager(newManager, { from: fromAddress });
     return tx;
   }
 
-  async changeBaliolaWallet(newBaliolaWallet) {
-    const tx = await this.contractInstance.changeBaliolaWallet(newBaliolaWallet);
+  async changeBaliolaWallet(newBaliolaWallet, fromAddress) {
+    const tx = await this.contractInstance.changeBaliolaWallet(newBaliolaWallet, { from: fromAddress });
     return tx;
   }
 
-  async getUserAuction(user) {
-    const tx = await this.contractInstance.getUserAuction(user);
+  async getUserAuction(user, fromAddress) {
+    const tx = await this.contractInstance.getUserAuction(user, { from: fromAddress });
     return tx;
   }
 
-  async buy(auctionId, transactionFee, amount) {
-    const tx = await this.contractInstance.buy(auctionId, transactionFee, amount);
+  async buy(auctionId, transactionFee, amount, fromAddress) {
+    const tx = await this.contractInstance.buy(auctionId, transactionFee, amount, { from: fromAddress });
     return tx;
   }
 
-  async refill(auctionId, amount) {
-    const tx = await this.contractInstance.refill(auctionId, amount);
+  async refill(auctionId, amount, fromAddress) {
+    const tx = await this.contractInstance.refill(auctionId, amount, { from: fromAddress });
     return tx;
   }
 
-  async createAuction(price, _nftAddress, _tokenId, _nftAmount, _nftSeller) {
-    const tx = await this.contractInstance.createAuction(price, _nftAddress, _tokenId, _nftAmount, _nftSeller);
+  async createAuction(price, _nftAddress, _tokenId, _nftAmount, _nftSeller, fromAddress) {
+    const tx = await this.contractInstance.createAuction(price, _nftAddress, _tokenId, _nftAmount, _nftSeller, { from: fromAddress });
     return tx;
   }
 
-  async getAuctions() {
-    const tx = await this.contractInstance.getAuctions();
+  async getAuctions(fromAddress) {
+    const tx = await this.contractInstance.getAuctions({ from: fromAddress });
     return tx;
   }
 
