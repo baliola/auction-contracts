@@ -1,6 +1,6 @@
-import { AuctionFixedPrice1155 } from "./auction-fixed-price-1155";
+const { AuctionFixedPrice1155 } = require("./auction-fixed-price-1155");
 
-export default class FixedPriceAuctionManager1155 {
+class FixedPriceAuctionManager1155 {
   contractInstance
   contractAddress
 
@@ -85,4 +85,8 @@ export default class FixedPriceAuctionManager1155 {
   }
 
 
+}
+
+module.exports = {
+  FixedPriceAuctionManager1155
 }
