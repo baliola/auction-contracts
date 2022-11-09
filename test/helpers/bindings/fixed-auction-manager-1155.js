@@ -1,3 +1,6 @@
+const { fixedPriceAuctionArtifact } = require("../../../utils/utils");
+const { AuctionFixedPrice1155 } = require("./auction-fixed-price-1155");
+
 class FixedPriceAuctionManager1155 {
   contractInstance
   contractAddress
@@ -66,6 +69,19 @@ class FixedPriceAuctionManager1155 {
     const tx = await this.contractInstance.getAuctions({ from: fromAddress });
     return tx;
   }
+
+  /**
+   * 
+   * @param {string} address 
+   * @returns {Promise<AuctionFixedPrice1155>} auction fixed price 1155 contract instance
+   */
+  async inferAuction(address) {
+    const instance = await fixedPriceAuctionArtifact.at(address)
+    const contract = new AuctionFixedPrice1155(instance)
+
+    return contract
+  }
+
 
 }
 module.exports = {

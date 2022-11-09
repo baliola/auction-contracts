@@ -1,3 +1,5 @@
+const { auction1155Artifact } = require("../../../utils/utils");
+const { Auction1155 } = require("./auction-1155");
 
 class AuctionManager1155 {
   contractInstance
@@ -73,6 +75,19 @@ class AuctionManager1155 {
     const tx = await this.contractInstance.getAuctions({ from: fromAddress });
     return tx;
   }
+
+  /**
+   * 
+   * @param {string} address 
+   * @returns {Promise<Auction1155>} auction 1155 contract instance
+   */
+  async inferAuction(address) {
+    const instance = await auction1155Artifact.at(address)
+    const contract = new Auction1155(instance)
+
+    return contract
+  }
+
 
 }
 

@@ -1,3 +1,4 @@
+const { fixedPriceAuctionArtifact } = require("../../../utils/utils");
 
 class AuctionFixedPrice1155 {
   contractInstance
