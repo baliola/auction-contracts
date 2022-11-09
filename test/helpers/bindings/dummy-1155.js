@@ -28,23 +28,23 @@ class Dummy1155 {
     return tx;
   }
 
-  async balanceOf(account, id) {
-    const tx = await this.contractInstance.balanceOf(account, id);
+  async balanceOf(account, id, fromAddress) {
+    const tx = await this.contractInstance.balanceOf(account, id, { from: fromAddress });
     return tx;
   }
 
-  async balanceOfBatch(accounts, ids) {
-    const tx = await this.contractInstance.balanceOfBatch(accounts, ids);
+  async balanceOfBatch(accounts, ids, fromAddress) {
+    const tx = await this.contractInstance.balanceOfBatch(accounts, ids, { from: fromAddress });
     return tx;
   }
 
-  async burn(account, id, value) {
-    const tx = await this.contractInstance.burn(account, id, value);
+  async burn(account, id, value, fromAddress) {
+    const tx = await this.contractInstance.burn(account, id, value, { from: fromAddress });
     return tx;
   }
 
-  async burnBatch(account, ids, values) {
-    const tx = await this.contractInstance.burnBatch(account, ids, values);
+  async burnBatch(account, ids, values, fromAddress) {
+    const tx = await this.contractInstance.burnBatch(account, ids, values, { from: fromAddress });
     return tx;
   }
 
@@ -83,28 +83,28 @@ class Dummy1155 {
     return tx;
   }
 
-  async renounceRole(role, account) {
-    const tx = await this.contractInstance.renounceRole(role, account);
+  async renounceRole(role, account, fromAddress) {
+    const tx = await this.contractInstance.renounceRole(role, account, { from: fromAddress });
     return tx;
   }
 
-  async revokeRole(role, account) {
-    const tx = await this.contractInstance.revokeRole(role, account);
+  async revokeRole(role, account, fromAddress) {
+    const tx = await this.contractInstance.revokeRole(role, account, { from: fromAddress });
     return tx;
   }
 
-  async safeBatchTransferFrom(from, to, ids, amounts, data) {
-    const tx = await this.contractInstance.safeBatchTransferFrom(from, to, ids, amounts, data);
+  async safeBatchTransferFrom(from, to, ids, amounts, data, fromAddress) {
+    const tx = await this.contractInstance.safeBatchTransferFrom(from, to, ids, amounts, data, { from: fromAddress });
     return tx;
   }
 
-  async safeTransferFrom(from, to, id, amount, data) {
-    const tx = await this.contractInstance.safeTransferFrom(from, to, id, amount, data);
+  async safeTransferFrom(from, to, id, amount, data, fromAddress) {
+    const tx = await this.contractInstance.safeTransferFrom(from, to, id, amount, data, { from: fromAddress });
     return tx;
   }
 
-  async setApprovalForAll(operator, approved) {
-    const tx = await this.contractInstance.setApprovalForAll(operator, approved);
+  async setApprovalForAll(operator, approved, fromAddress) {
+    const tx = await this.contractInstance.setApprovalForAll(operator, approved, { from: fromAddress });
     return tx;
   }
 
@@ -113,33 +113,33 @@ class Dummy1155 {
     return tx;
   }
 
-  async uri(argv1) {
-    const tx = await this.contractInstance.uri(argv1);
+  async uri(argv1, fromAddress) {
+    const tx = await this.contractInstance.uri(argv1, { from: fromAddress });
     return tx;
   }
 
-  async setURI(newuri) {
-    const tx = await this.contractInstance.setURI(newuri);
+  async setURI(newuri, fromAddress) {
+    const tx = await this.contractInstance.setURI(newuri, { from: fromAddress });
     return tx;
   }
 
-  async pause() {
-    const tx = await this.contractInstance.pause();
+  async pause(fromAddress) {
+    const tx = await this.contractInstance.pause({ from: fromAddress });
     return tx;
   }
 
-  async unpause() {
-    const tx = await this.contractInstance.unpause();
+  async unpause(fromAddress) {
+    const tx = await this.contractInstance.unpause({ from: fromAddress });
     return tx;
   }
 
-  async mint(account, amount, data) {
-    const tx = await this.contractInstance.mint(account, amount, data);
+  async mint(account, amount, data, fromAddress) {
+    const tx = await this.contractInstance.mint(account, amount, data, { from: fromAddress });
     return tx;
   }
 
-  async mintBatch(to, countOfNFTs, amounts, data) {
-    const tx = await this.contractInstance.mintBatch(to, countOfNFTs, amounts, data);
+  async mintBatch(to, countOfNFTs, amounts, data, fromAddress) {
+    const tx = await this.contractInstance.mintBatch(to, countOfNFTs, amounts, data, { from: fromAddress });
     return tx;
   }
 
