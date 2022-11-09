@@ -114,19 +114,6 @@ class AuctionFixedPrice1155 {
     return tx;
   }
 
-  /**
-   * 
-   * @param {string} address 
-   * @returns {Promise<AuctionFixedPrice1155>} auction fixed price 1155 contract instance
-   */
-  async inferAuction(address) {
-    const instance = await fixedPriceAuctionArtifact.at(address)
-    const contract = new AuctionFixedPrice1155(instance)
-
-    return contract
-  }
-
-
 }
 
 module.exports = {
