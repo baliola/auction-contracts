@@ -7,23 +7,23 @@ class Dummy721 {
     this.contractAddress = contract.address;
   }
 
-  async approve(to, tokenId) {
-    const tx = await this.contractInstance.approve(to, tokenId);
+  async approve(to, tokenId, fromAddress) {
+    const tx = await this.contractInstance.approve(to, tokenId, { from: fromAddress });
     return tx;
   }
 
-  async balanceOf(owner) {
-    const tx = await this.contractInstance.balanceOf(owner);
+  async balanceOf(owner, fromAddress) {
+    const tx = await this.contractInstance.balanceOf(owner, { from: fromAddress });
     return tx;
   }
 
-  async getApproved(tokenId) {
-    const tx = await this.contractInstance.getApproved(tokenId);
+  async getApproved(tokenId, fromAddress) {
+    const tx = await this.contractInstance.getApproved(tokenId, { from: fromAddress });
     return tx;
   }
 
-  async isApprovedForAll(owner, operator) {
-    const tx = await this.contractInstance.isApprovedForAll(owner, operator);
+  async isApprovedForAll(owner, operator, fromAddress) {
+    const tx = await this.contractInstance.isApprovedForAll(owner, operator, { from: fromAddress });
     return tx;
   }
 
@@ -37,23 +37,23 @@ class Dummy721 {
     return tx;
   }
 
-  async ownerOf(tokenId) {
-    const tx = await this.contractInstance.ownerOf(tokenId);
+  async ownerOf(tokenId, fromAddress) {
+    const tx = await this.contractInstance.ownerOf(tokenId, { from: fromAddress });
     return tx;
   }
 
-  async safeTransferFrom(from, to, tokenId) {
-    const tx = await this.contractInstance.safeTransferFrom(from, to, tokenId);
+  async safeTransferFrom(from, to, tokenId, fromAddress) {
+    const tx = await this.contractInstance.safeTransferFrom(from, to, tokenId, { from: fromAddress });
     return tx;
   }
 
-  async safeTransferFrom(from, to, tokenId, data) {
-    const tx = await this.contractInstance.safeTransferFrom(from, to, tokenId, data);
+  async safeTransferFrom(from, to, tokenId, data, fromAddress) {
+    const tx = await this.contractInstance.safeTransferFrom(from, to, tokenId, data, { from: fromAddress });
     return tx;
   }
 
-  async setApprovalForAll(operator, approved) {
-    const tx = await this.contractInstance.setApprovalForAll(operator, approved);
+  async setApprovalForAll(operator, approved, fromAddress) {
+    const tx = await this.contractInstance.setApprovalForAll(operator, approved, { from: fromAddress });
     return tx;
   }
 
@@ -72,8 +72,8 @@ class Dummy721 {
     return tx;
   }
 
-  async transferFrom(from, to, tokenId) {
-    const tx = await this.contractInstance.transferFrom(from, to, tokenId);
+  async transferFrom(from, to, tokenId, fromAddress) {
+    const tx = await this.contractInstance.transferFrom(from, to, tokenId, { from: fromAddress });
     return tx;
   }
 
@@ -82,8 +82,8 @@ class Dummy721 {
     return tx;
   }
 
-  async getItem() {
-    const tx = await this.contractInstance.getItem();
+  async getItem(fromAddress) {
+    const tx = await this.contractInstance.getItem({ from: fromAddress });
     return tx;
   }
 
