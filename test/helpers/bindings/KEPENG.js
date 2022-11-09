@@ -8,28 +8,28 @@ class KEPENG {
     this.contractAddress = contract.address;
   }
 
-  async allowance(owner, spender) {
-    const tx = await this.contractInstance.allowance(owner, spender);
+  async allowance(owner, spender, fromAddress) {
+    const tx = await this.contractInstance.allowance(owner, spender, { from: fromAddress });
     return tx;
   }
 
-  async approve(spender, amount) {
-    const tx = await this.contractInstance.approve(spender, amount);
+  async approve(spender, amount, fromAddress) {
+    const tx = await this.contractInstance.approve(spender, amount, { from: fromAddress });
     return tx;
   }
 
-  async balanceOf(account) {
-    const tx = await this.contractInstance.balanceOf(account);
+  async balanceOf(account, fromAddress) {
+    const tx = await this.contractInstance.balanceOf(account, { from: fromAddress });
     return tx;
   }
 
-  async burn(amount) {
-    const tx = await this.contractInstance.burn(amount);
+  async burn(amount, fromAddress) {
+    const tx = await this.contractInstance.burn(amount, { from: fromAddress });
     return tx;
   }
 
-  async burnFrom(account, amount) {
-    const tx = await this.contractInstance.burnFrom(account, amount);
+  async burnFrom(account, amount, fromAddress) {
+    const tx = await this.contractInstance.burnFrom(account, amount, { from: fromAddress });
     return tx;
   }
 
@@ -38,13 +38,13 @@ class KEPENG {
     return tx;
   }
 
-  async decreaseAllowance(spender, subtractedValue) {
-    const tx = await this.contractInstance.decreaseAllowance(spender, subtractedValue);
+  async decreaseAllowance(spender, subtractedValue, fromAddress) {
+    const tx = await this.contractInstance.decreaseAllowance(spender, subtractedValue, { from: fromAddress });
     return tx;
   }
 
-  async increaseAllowance(spender, addedValue) {
-    const tx = await this.contractInstance.increaseAllowance(spender, addedValue);
+  async increaseAllowance(spender, addedValue, fromAddress) {
+    const tx = await this.contractInstance.increaseAllowance(spender, addedValue, { from: fromAddress });
     return tx;
   }
 
@@ -63,7 +63,7 @@ class KEPENG {
     return tx;
   }
 
-  async renounceOwnership() {
+  async renounceOwnership(fromAddress) {
     const tx = await this.contractInstance.renounceOwnership();
     return tx;
   }
@@ -78,28 +78,28 @@ class KEPENG {
     return tx;
   }
 
-  async transfer(recipient, amount) {
-    const tx = await this.contractInstance.transfer(recipient, amount);
+  async transfer(recipient, amount, fromAddress) {
+    const tx = await this.contractInstance.transfer(recipient, amount, { from: fromAddress });
     return tx;
   }
 
-  async transferFrom(sender, recipient, amount) {
-    const tx = await this.contractInstance.transferFrom(sender, recipient, amount);
+  async transferFrom(sender, recipient, amount, fromAddress) {
+    const tx = await this.contractInstance.transferFrom(sender, recipient, amount, { from: fromAddress });
     return tx;
   }
 
-  async transferOwnership(newOwner) {
-    const tx = await this.contractInstance.transferOwnership(newOwner);
+  async transferOwnership(newOwner, fromAddress) {
+    const tx = await this.contractInstance.transferOwnership(newOwner, { from: fromAddress });
     return tx;
   }
 
-  async pause() {
-    const tx = await this.contractInstance.pause();
+  async pause(fromAddress) {
+    const tx = await this.contractInstance.pause({ from: fromAddress });
     return tx;
   }
 
-  async unpause() {
-    const tx = await this.contractInstance.unpause();
+  async unpause(fromAddress) {
+    const tx = await this.contractInstance.unpause({ from: fromAddress });
     return tx;
   }
 
