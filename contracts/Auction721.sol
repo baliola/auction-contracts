@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "./kepeng.sol";
 
-contract Auction {
+contract Auction721 {
     using SafeMath for uint256;
     uint256 public endTime; // Timestamp of the end of the auction (in seconds)
     uint256 public startTime; // The block timestamp which marks the start of the auction
@@ -213,7 +213,7 @@ contract Auction {
             getAuctionState() == AuctionState.ENDED ||
                 getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
-            "The auction must be ended by either a direct buy, by creator, or timeout "
+            "The auction must be ended by either a direct buy, by creator, or timeout"
         ); // The auction must be ended by either a direct buy or timeout
 
         require(

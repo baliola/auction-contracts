@@ -5,15 +5,15 @@ import "./Auction1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 
-contract AuctionManager is ERC1155Holder {
+contract AuctionManager1155 is ERC1155Holder {
     address _kepeng;
     uint256 _auctionIdCounter = 1; // auction Id counter
     address baliola;
     address manager;
     KEPENG Kepeng;
 
-    mapping(uint256 => Auction) public auctionsByIndex; // auctionsByIndex
-    mapping(Auction => uint256) public auctionsByAddress;
+    mapping(uint256 => Auction1155) public auctionsByIndex; // auctionsByIndex
+    mapping(Auction1155 => uint256) public auctionsByAddress;
     mapping(address => address[]) public auctionsUser;
 
     modifier onlyManager() {
@@ -75,7 +75,7 @@ contract AuctionManager is ERC1155Holder {
         Kepeng.transfer(address(auctionsByIndex[auctionId]), transactionFee);
         // transfer the fee back to baliola's wallet
         // actually place bid on the auction
-        Auction(auctionsByIndex[auctionId]).placeBid(
+        Auction1155(auctionsByIndex[auctionId]).placeBid(
             msg.sender,
             transactionFee
         );
@@ -109,7 +109,7 @@ contract AuctionManager is ERC1155Holder {
 
             uint256 auctionId = _auctionIdCounter; // get the current value of the counter
             _auctionIdCounter++; // increment the counter
-            Auction auction = new Auction(
+            Auction1155 auction = new Auction1155(
                 msg.sender,
                 _endTime,
                 baliola,
@@ -148,7 +148,7 @@ contract AuctionManager is ERC1155Holder {
             }
             uint256 auctionId = _auctionIdCounter; // get the current value of the counter
             _auctionIdCounter++; // increment the counter
-            Auction auction = new Auction(
+            Auction1155 auction = new Auction1155(
                 msg.sender,
                 _endTime,
                 baliola,

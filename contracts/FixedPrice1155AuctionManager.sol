@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 
-import "./FixedPrice.sol";
+import "./FixedPrice1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 
-contract AuctionManager is ERC1155Holder {
+contract FixedPriceAuctionManager1155 is ERC1155Holder {
     address _kepeng;
     uint256 _auctionIdCounter = 1; // auction Id counter
     address baliola;
     address manager;
     KEPENG Kepeng;
 
-    mapping(uint256 => Auction) public auctionsByIndex; // auctionsByIndex
-    mapping(Auction => uint256) public auctionsByAddress;
+    mapping(uint256 => AuctionFixedPrice1155) public auctionsByIndex; // auctionsByIndex
+    mapping(AuctionFixedPrice1155 => uint256) public auctionsByAddress;
     mapping(address => address[]) public auctionsUser;
 
     modifier onlyManager() {
@@ -66,13 +66,13 @@ contract AuctionManager is ERC1155Holder {
         return auctions;
     }
 
-    function buy(uint256 auctionId, uint256 transactionFee,uint256 amount)
-        external
-        returns (bool)
-    {
-
-        uint256 userFee = transactionFee * 100 / 103;
-        uint256 baliolaFee = userFee * 3 / 100;
+    function buy(
+        uint256 auctionId,
+        uint256 transactionFee,
+        uint256 amount
+    ) external returns (bool) {
+        uint256 userFee = (transactionFee * 100) / 103;
+        uint256 baliolaFee = (userFee * 3) / 100;
 
         Kepeng.transferFrom(msg.sender, address(this), transactionFee);
         // transfer baliola fee
@@ -80,7 +80,7 @@ contract AuctionManager is ERC1155Holder {
         // transfer the bid amount to the desired auctionsByIndex based on the auction Id
         Kepeng.transfer(address(auctionsByIndex[auctionId]), userFee);
         // actually place bid on the auction
-        Auction(auctionsByIndex[auctionId]).buy(
+        AuctionFixedPrice1155(auctionsByIndex[auctionId]).buy(
             msg.sender,
             amount,
             userFee
@@ -88,30 +88,32 @@ contract AuctionManager is ERC1155Holder {
         return true;
     }
 
-    function refill(uint256 auctionId, uint256 amount)external returns(bool){
-        Auction auction = Auction(auctionsByIndex[auctionId]);
+    function refill(uint256 auctionId, uint256 amount) external returns (bool) {
+        AuctionFixedPrice1155 auction = AuctionFixedPrice1155(
+            auctionsByIndex[auctionId]
+        );
         uint256 tokenId = auction.tokenId();
         address nftAddress = auction.nftAddress();
         IERC1155 nftContract = IERC1155(nftAddress);
 
         // refill
-        auction.refill(msg.sender,amount);
+        auction.refill(msg.sender, amount);
 
-                    nftContract.safeTransferFrom(
-                msg.sender,
-                address(this),
-                tokenId,
-                amount,
-                ""
-            ); 
-            
-            nftContract.safeTransferFrom(
-                address(this),
-                address(auction),
-                tokenId,
-                amount,
-                ""
-            ); // transfer the token to the auction
+        nftContract.safeTransferFrom(
+            msg.sender,
+            address(this),
+            tokenId,
+            amount,
+            ""
+        );
+
+        nftContract.safeTransferFrom(
+            address(this),
+            address(auction),
+            tokenId,
+            amount,
+            ""
+        ); // transfer the token to the auction
 
         return true;
     }
@@ -124,42 +126,41 @@ contract AuctionManager is ERC1155Holder {
         uint256 _nftAmount,
         address _nftSeller
     ) external returns (address) {
-      
-            uint256 auctionId = _auctionIdCounter; // get the current value of the counter
-            _auctionIdCounter++; // increment the counter
-            Auction auction = new Auction(
-                msg.sender,
-                baliola,
-                _nftAddress,
-                _tokenId,
-                _nftAmount,
-                price,
-                Kepeng,
-                _nftSeller
-            ); // create the auction
+        uint256 auctionId = _auctionIdCounter; // get the current value of the counter
+        _auctionIdCounter++; // increment the counter
+        AuctionFixedPrice1155 auction = new AuctionFixedPrice1155(
+            msg.sender,
+            baliola,
+            _nftAddress,
+            _tokenId,
+            _nftAmount,
+            price,
+            Kepeng,
+            _nftSeller
+        ); // create the auction
 
-            auctionsByIndex[auctionId] = auction; // add the auction to the map
-            auctionsByAddress[auction] = auctionId;
-            auctionsUser[msg.sender].push(address(auction));
+        auctionsByIndex[auctionId] = auction; // add the auction to the map
+        auctionsByAddress[auction] = auctionId;
+        auctionsUser[msg.sender].push(address(auction));
 
-            IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
-            _nftToken.safeTransferFrom(
-                msg.sender,
-                address(this),
-                _tokenId,
-                _nftAmount,
-                ""
-            ); 
-            
-            _nftToken.safeTransferFrom(
-                address(this),
-                address(auction),
-                _tokenId,
-                _nftAmount,
-                ""
-            ); // transfer the token to the auction
-           
-            return address(auction);
+        IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
+        _nftToken.safeTransferFrom(
+            msg.sender,
+            address(this),
+            _tokenId,
+            _nftAmount,
+            ""
+        );
+
+        _nftToken.safeTransferFrom(
+            address(this),
+            address(auction),
+            _tokenId,
+            _nftAmount,
+            ""
+        ); // transfer the token to the auction
+
+        return address(auction);
     }
 
     // Return a list of all auctionsByIndex
@@ -167,7 +168,7 @@ contract AuctionManager is ERC1155Holder {
         _auctions = new address[](_auctionIdCounter); // create an array of size equal to the current value of the counter
         for (uint256 i = 1; i < _auctionIdCounter; i++) {
             // for each auction
-            _auctions[i-1] = address(auctionsByIndex[i]); // add the address of the auction to the array
+            _auctions[i - 1] = address(auctionsByIndex[i]); // add the address of the auction to the array
         }
         return _auctions; // return the array
     }

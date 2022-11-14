@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "./kepeng.sol";
 
-contract Auction is ERC1155Holder {
+contract Auction1155 is ERC1155Holder {
     using SafeMath for uint256;
     uint256 public endTime; // Timestamp of the end of the auction (in seconds)
     uint256 public startTime; // The block timestamp which marks the start of the auction
@@ -214,7 +214,7 @@ contract Auction is ERC1155Holder {
             getAuctionState() == AuctionState.ENDED ||
                 getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
-            "The auction must be ended by either a direct buy, by creator, or timeout "
+            "The auction must be ended by either a direct buy, by creator, or timeout"
         ); // The auction must be ended by either a direct buy or timeout
 
         require(
@@ -256,7 +256,13 @@ contract Auction is ERC1155Holder {
         ); // The auction must be open
         isCancelled = true; // The auction has been cancelled
 
-        nft1155.safeTransferFrom(address(this), maxBidder, tokenId, nftAmount, ""); // Transfer the token to the highest bidder
+        nft1155.safeTransferFrom(
+            address(this),
+            maxBidder,
+            tokenId,
+            nftAmount,
+            ""
+        ); // Transfer the token to the highest bidder
         kepeng.transfer(maxBidder, maxBid);
         emit AuctionCanceled(); // Emit Auction Canceled event
         return true;
