@@ -620,13 +620,13 @@ contract(auctionManager721, async (defaultAccounts) => {
       users[0]
     );
 
-    try {
-      const buyerBid = await aManager721.placeBid(_auctionId, firstBid, buyer);
-    } catch (error) {
-      assert.strictEqual(
-        error.reason,
-        COMMON_AUCTION_ERRORS.BID_MUST_BE_HIGHER_THAN_START_PRICE
-      );
-    }
+    // try {
+    //   const buyerBid = await aManager721.placeBid(_auctionId, firstBid, buyer);
+    // } catch (error) {
+    //   assert.strictEqual(
+    //     error.reason,
+    //     COMMON_AUCTION_ERRORS.BID_MUST_BE_HIGHER_THAN_START_PRICE
+    //   );
+    // }
   });
 });
