@@ -109,6 +109,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         uint256 _amount,
         uint256 txFee
     ) external onlyManager returns (bool) {
+        require(_buyer != creator, "creator cannot buy nft!");
         require(availableNFT != 0, "out of supply! no nft is being selled!");
         require(_amount <= availableNFT, "not enough available nft!");
         require(
