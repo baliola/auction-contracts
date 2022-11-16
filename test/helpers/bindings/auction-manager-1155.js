@@ -56,18 +56,14 @@ class AuctionManager1155 {
     return tx;
   }
 
-  async buy(auctionId, transactionFee, amount, fromAddress) {
-    const tx = await this.contractInstance.buy(auctionId, transactionFee, amount, { from: fromAddress });
+  async placeBid(auctionId, transactionFee, fromAddress) {
+    const tx = await this.contractInstance.placeBid(auctionId, transactionFee, { from: fromAddress });
     return tx;
   }
 
-  async refill(auctionId, amount, fromAddress) {
-    const tx = await this.contractInstance.refill(auctionId, amount, { from: fromAddress });
-    return tx;
-  }
 
-  async createAuction(price, _nftAddress, _tokenId, _nftAmount, _nftSeller, fromAddress) {
-    const tx = await this.contractInstance.createAuction(price, _nftAddress, _tokenId, _nftAmount, _nftSeller, { from: fromAddress });
+  async createAuction(_endTime, _directBuyAuction, _directBuyPrice, _startPrice, _nftAddress, _tokenId, _nftAmount, _nftSeller, fromAddress) {
+    const tx = await this.contractInstance.createAuction(_endTime, _directBuyAuction, _directBuyPrice, _startPrice, _nftAddress, _tokenId, _nftAmount, _nftSeller, { from: fromAddress });
     return tx;
   }
 
