@@ -920,14 +920,6 @@ contract(fixedPriceAuctionManager, async (defaultAccounts) => {
         SPECIAL_FIXED_PRICE_AUCTION_ERRORS.CAN_ONLY_END_IF_AUCTION_IS_OPEN
       );
     }
-
-    // await manager115.buy(_auctionId, transactionFee, nftAmount, buyer);
-
-    // const availableNFTAfterSold = parseInt(
-    //   await auction1155.availableNFT(users[0])
-    // );
-
-    // assert.strictEqual(availableNFTAfterSold, availableNft - nftAmount);
   });
 
   it("error test for can only buy if auction open : can only buy if the fee is correct", async () => {
