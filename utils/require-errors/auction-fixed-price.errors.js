@@ -5,7 +5,9 @@ const CAN_ONLY_BUY_IF_AUCTION_OPEN = "can only buy nft when auction is open!";
 const CAN_ONLY_BUY_IF_FEE_IS_CORRECT = "can only buy if the fee is correct!";
 const CREATOR_CANNOT_BUY = "creator cannot buy nft!";
 const CAN_ONLY_END_IF_AUCTION_IS_OPEN =
-  "can only buy nft when auction is open!";
+  "can only end auction if the auction is open";
+const ONLY_CREATOR_CAN_END_AUCTION =
+  "Only the auction creator can end the auction";
 
 const SPECIAL_FIXED_PRICE_AUCTION_ERRORS = {
   ONLY_CREATOR_CAN_REFILL,
@@ -13,6 +15,9 @@ const SPECIAL_FIXED_PRICE_AUCTION_ERRORS = {
   NOT_ENOUGH_NFT,
   CAN_ONLY_BUY_IF_AUCTION_OPEN,
   CAN_ONLY_BUY_IF_FEE_IS_CORRECT,
+  CREATOR_CANNOT_BUY,
+  CAN_ONLY_END_IF_AUCTION_IS_OPEN,
+  ONLY_CREATOR_CAN_END_AUCTION,
 };
 
 module.exports = {
