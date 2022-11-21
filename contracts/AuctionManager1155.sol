@@ -104,7 +104,10 @@ contract AuctionManager1155 is ERC1155Holder {
             ); // start price must be less than the direct buy price
 
             if (_endTime != 0) {
-                require(_endTime > 12 hours, "must be greater than 12 hours");
+                require(
+                    _endTime > (block.timestamp + 12 hours),
+                    "must be greater than 12 hours"
+                );
             }
 
             uint256 auctionId = _auctionIdCounter; // get the current value of the counter
@@ -144,7 +147,10 @@ contract AuctionManager1155 is ERC1155Holder {
             return address(auction);
         } else {
             if (_endTime != 0) {
-                require(_endTime > 12 hours, "must be greater than 12 hours");
+                require(
+                    _endTime > (block.timestamp + 12 hours),
+                    "must be greater than 12 hours"
+                );
             }
             uint256 auctionId = _auctionIdCounter; // get the current value of the counter
             _auctionIdCounter++; // increment the counter
