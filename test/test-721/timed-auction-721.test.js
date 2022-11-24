@@ -101,8 +101,8 @@ contract(auctionManager721, async (defaultAccounts) => {
     const baliolaWallet = getBaliolaWallet(accounts);
     const managerWallet = getManagerWallet(accounts);
 
-    const endTimeAuction = Date.now() + 86400 * 1000;
-    const endtimeAuctionInSeconds = endTimeAuction / 1000;
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -152,7 +152,8 @@ contract(auctionManager721, async (defaultAccounts) => {
     const baliolaWallet = getBaliolaWallet(accounts);
     const managerWallet = getManagerWallet(accounts);
 
-    const endTimeAuction = Date.now() + 86400000;
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -223,7 +224,8 @@ contract(auctionManager721, async (defaultAccounts) => {
     const baliolaWallet = getBaliolaWallet(accounts);
     const managerWallet = getManagerWallet(accounts);
 
-    const endTimeAuction = Date.now() + 86400000;
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -296,7 +298,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -399,7 +403,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -476,7 +482,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -557,7 +565,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -642,7 +652,8 @@ contract(auctionManager721, async (defaultAccounts) => {
     const baliolaWallet = getBaliolaWallet(accounts);
     const managerWallet = getManagerWallet(accounts);
 
-    const endTimeAuction = 86400;
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -678,8 +689,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     } catch (error) {
       assert.strictEqual(
         error.reason,
-        COMMON_MANAGER_ERRORS.DIRECT_BUY_PRICE_MUST_NOT_BE_0
+        COMMON_MANAGER_ERRORS.END_TIME_MUST_BE_GREATER_THAN_12_HOURS
       );
+      console.log("first", error.reason);
     }
   });
 
@@ -692,7 +704,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -770,7 +784,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -854,7 +870,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -937,7 +955,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -1041,7 +1061,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1143,7 +1165,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1238,7 +1262,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1336,7 +1362,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1436,7 +1464,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1535,7 +1565,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -1615,7 +1647,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -1696,7 +1730,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1794,7 +1830,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const secondBuyer = users[2];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
     const directBuyPriceAuction = 0;
     const startPrice = 5000;
     const _tokenId = 0;
@@ -1888,8 +1926,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400000;
-    const endtimeAuctionInSeconds = parseInt(endTimeAuction / 1000);
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 86400);
 
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
@@ -1933,7 +1972,7 @@ contract(auctionManager721, async (defaultAccounts) => {
     );
 
     const createAuction = await aManager721.createAuction(
-      endtimeAuctionInSeconds,
+      endTimeAuction,
       false,
       directBuyPriceAuction,
       startPrice,
@@ -1962,7 +2001,7 @@ contract(auctionManager721, async (defaultAccounts) => {
     assert.strictEqual(buyerNFTAfterWithdraw, buyerNFT + 1);
   });
 
-  it("should withdraw kepeng to seller after end auction", async () => {
+  it("should withdraw kepeng to seller after timeout", async () => {
     const accounts = defaultAccounts;
     const contractFactory = new ContractFactory();
     const timeHelper = new TimeHelper();
@@ -1972,8 +2011,9 @@ contract(auctionManager721, async (defaultAccounts) => {
     const buyer = users[1];
 
     const _auctionId = 1;
-    const endTimeAuction = Date.now() + 86400 * 2 * 1000;
-    const endtimeAuctionInSeconds = parseInt(endTimeAuction / 1000);
+
+    const dateEndtime = Date.now() / 1000;
+    const endTimeAuction = parseInt(dateEndtime + 172800);
     const directBuyPriceAuction = 0;
     const startPrice = 10000;
     const _tokenId = 0;
@@ -2018,7 +2058,7 @@ contract(auctionManager721, async (defaultAccounts) => {
     );
 
     const createAuction = await aManager721.createAuction(
-      endtimeAuctionInSeconds,
+      endTimeAuction,
       false,
       directBuyPriceAuction,
       startPrice,
