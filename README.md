@@ -1,21 +1,35 @@
-### TESTING AND DOCS IS STILL IN WIP
+# TESTING AND DOCS
 
-for testing guide visit truffle docs [here](https://trufflesuite.com/docs/truffle/)
+In this Unit Test, we are using Truffle, what is truffle?
 
-## testing steps
+> > A world class development environment, testing framework and asset pipeline for blockchains using the Ethereum Virtual Machine (EVM), aiming to make life as a developer easier.If you want to know more about Truffle, just visit _[Truffle Documentation](https://trufflesuite.com/docs/truffle/)_.
 
-1. install all dependencies using `npm i`
-2. run `npm run develop` and then open another terminal
-3. run `npm run test-full` to run the tests
+##### BEFORE WE RUN THE TESTS, WE NEED TO DO A FEW STEPS FIRST!
+
+###### REQUIRED STEPS:
+
+- First of all, open your terminal then install all dependencies using `npm i` / `npm install`
+- Then you need to compile the contracts using `npm run compile`
+- last but not least, run `npm run develop`
+- After you finished all the steps above, **_you're ready to run the test!_**
+
+###### TESTING STEPS
+
+Open a new terminal and keep the truffle develop terminal open! You can check the test scripts in the `package.json` file and you can choose what contract do you want to test! but we'll keep give you our testing order!
+
+1. To run the `fixed-price-1155.test.js` just simply run `npm run test-fixed-price`
+2. To run the `open-bids-1155.test.js` just simply run `npm run test-open-bid-multiple`
+3. To run the `fixed-price-721.test.js` just simply run `npm run test-fixed-price-single`
+4. To run the `open-bids-721.test.js` just simply run `npm run test-open-bid-single`
+
+#note:
+there's special treatment for testing timed auction test, after you test one of timed aucion test `timed-auction-1155.test.js` or `timed-auction-721.test.js` you need to close all your terminal, then open a terminal and run `npm run develop` then open a new terminal, and you good to go! for example:
+
+1. To run the `timed-auction-1155.test.js`, just simply run `npm run test-timed-multiple` | To run the `timed-auction-721.test.js`, just simply run `npm run test-timed-single`
+2. After the test is completed, close all your terminal
+3. Then open a new terminal, and run `npm run develop`
+4. Open a new terminal once again, then you can run another test!
 
 # notes
 
-if you want to run the tests without recompiling run `npm run test-fast` in the terminal.
-
-test modifier first, then `require` statements, and then conditional such as `if` and `else`, and then assert the events.
-
-when comparing require error statements, make sure to call `.trim()` method on error strings to avoid whitespace issues.
-
-when asserting `require` errors, use the error definitions on the utils directory
-
-also, it is recommended to tests and asserts return statements.
+If you found an error such as `could not connect to the ethereum client`, just repeat the required steps from `npm run develop`
