@@ -105,6 +105,76 @@ contract Auction721 {
         return (addrs, bidPrice);
     }
 
+    function handleSameMaxBidder(uint256 bidAmount) private returns (bool) {
+        require(
+            bidAmount > minIncrement,
+            "the bid must be higher than the minimum increment"
+        );
+
+        if (directBuyStatus) {
+            if (bidAmount >= directBuyPrice) {
+                // If the bid is higher than the direct buy price
+                isDirectBuy = true; // The auction has ended
+            }
+            maxBid = maxBid + bidAmount;
+            bids[bids.length - 1].bid = maxBid;
+
+            if (maxBid >= directBuyPrice) {
+                isDirectBuy = true; // The auction has ended
+            }
+
+            return true;
+        } else {
+            maxBid = maxBid + bidAmount;
+            bids[bids.length - 1].bid = maxBid;
+
+            return true;
+        }
+    }
+
+    function handleDifferentMaxBidder(address bidder, uint256 bidAmount)
+        private
+        returns (bool)
+    {
+        address lastHighestBidder = maxBidder; // The address of the last highest bidder
+        uint256 lastHighestBid = maxBid; // The last highest bid
+
+        require(
+            bidAmount >= maxBid + minIncrement,
+            "The bid must be higher than the current bid + the minimum increment"
+        ); // The bid must be higher than the current bid + the minimum increment
+        maxBid = bidAmount; // The new highest bid
+        maxBidder = bidder; // The address of the new highest bidder
+
+        if (directBuyStatus) {
+            if (bidAmount >= directBuyPrice) {
+                // If the bid is higher than the direct buy price
+                isDirectBuy = true; // The auction has ended
+            }
+            bids.push(Bid(bidder, bidAmount)); // Add the new bid to the list of bids
+
+            if (lastHighestBid != 0) {
+                // if there is a bid
+                kepeng.transfer(lastHighestBidder, lastHighestBid); // refund the previous bid to the previous highest bidder
+            }
+
+            emit NewBid(bidder, bidAmount); // emit a new bid event
+
+            return true; // The bid was placed successfully
+        } else {
+            bids.push(Bid(bidder, bidAmount)); // Add the new bid to the list of bids
+
+            if (lastHighestBid != 0) {
+                // if there is a bid
+                kepeng.transfer(lastHighestBidder, lastHighestBid); // refund the previous bid to the previous highest bidder
+            }
+
+            emit NewBid(bidder, bidAmount); // emit a new bid event
+
+            return true; // The bid was placed successfully
+        }
+    }
+
     // Place a bid on the auction
     function placeBid(address bidder, uint256 bidAmount)
         external
@@ -117,74 +187,17 @@ contract Auction721 {
             getAuctionState() == AuctionState.OPEN,
             "can only place bid if the auction open"
         ); // The auction must be open
+
         require(
             bidAmount > startPrice,
             "the bid must be higher than the start price"
         ); // The bid must be higher than the starting price
 
-        address lastHighestBidder = maxBidder; // The address of the last highest bidder
-        uint256 lastHighestBid = maxBid; // The last highest bid
-
         // this will executed if the bidder is the same max bidder as before
         if (bidder == maxBidder) {
-            require(
-                bidAmount > minIncrement,
-                "the bid must be higher than the minimum increment"
-            );
-            if (directBuyStatus) {
-                if (bidAmount >= directBuyPrice) {
-                    // If the bid is higher than the direct buy price
-                    isDirectBuy = true; // The auction has ended
-                }
-                maxBid = maxBid + bidAmount;
-                bids[bids.length - 1].bid = maxBid;
-
-                if (maxBid >= directBuyPrice) {
-                    isDirectBuy = true; // The auction has ended
-                }
-
-                return true;
-            } else {
-                maxBid = maxBid + bidAmount;
-                bids[bids.length - 1].bid = maxBid;
-
-                return true;
-            }
+            return handleSameMaxBidder(bidAmount);
         } else {
-            require(
-                bidAmount >= maxBid + minIncrement,
-                "The bid must be higher than the current bid + the minimum increment"
-            ); // The bid must be higher than the current bid + the minimum increment
-            maxBid = bidAmount; // The new highest bid
-            maxBidder = bidder; // The address of the new highest bidder
-
-            if (directBuyStatus) {
-                if (bidAmount >= directBuyPrice) {
-                    // If the bid is higher than the direct buy price
-                    isDirectBuy = true; // The auction has ended
-                }
-                bids.push(Bid(bidder, bidAmount)); // Add the new bid to the list of bids
-
-                if (lastHighestBid != 0) {
-                    // if there is a bid
-                    kepeng.transfer(lastHighestBidder, lastHighestBid); // refund the previous bid to the previous highest bidder
-                }
-
-                emit NewBid(bidder, bidAmount); // emit a new bid event
-
-                return true; // The bid was placed successfully
-            } else {
-                bids.push(Bid(bidder, bidAmount)); // Add the new bid to the list of bids
-
-                if (lastHighestBid != 0) {
-                    // if there is a bid
-                    kepeng.transfer(lastHighestBidder, lastHighestBid); // refund the previous bid to the previous highest bidder
-                }
-
-                emit NewBid(bidder, bidAmount); // emit a new bid event
-
-                return true; // The bid was placed successfully
-            }
+            return handleDifferentMaxBidder(bidder, bidAmount);
         }
     }
 
