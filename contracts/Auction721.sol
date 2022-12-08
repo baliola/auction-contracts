@@ -73,7 +73,7 @@ contract Auction721 {
         if (_royalty != 0) {
             isRoyaltyActive = true;
         } else {
-            isRoyaltyActive = true;
+            isRoyaltyActive = false;
         }
         royalty = _royalty;
         startTime = block.timestamp; // The timestamp which marks the start of the auction
