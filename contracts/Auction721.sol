@@ -230,19 +230,18 @@ contract Auction721 {
         return true;
     }
 
-    // Withdraw the funds after the auction is over
     function withdrawFunds() external returns (bool) {
         require(
             getAuctionState() == AuctionState.ENDED ||
                 getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
             "The auction must be ended by either a direct buy, by seller, or timeout"
-        ); // The auction must be ended by either a direct buy or timeout
+        );
 
         require(
             msg.sender == seller,
             "The auction seller can only withdraw the funds"
-        ); // The auction seller can only withdraw the funds
+        );
         uint256 principal = _calculatePrincipal(maxBid);
         uint256 fee = _calculateFee(principal);
 
