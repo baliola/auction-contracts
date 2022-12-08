@@ -91,7 +91,8 @@ contract AuctionManager1155 is ERC1155Holder {
         address _nftAddress,
         uint256 _tokenId,
         uint256 _nftAmount,
-        address _nftSeller
+        address _nftCreator,
+        uint256 _royalty
     ) external returns (address) {
         if (_directBuyAuction) {
             require(
@@ -124,7 +125,8 @@ contract AuctionManager1155 is ERC1155Holder {
             _tokenId,
             _nftAmount,
             Kepeng,
-            _nftSeller
+            _nftCreator,
+            _royalty
         ); // create the auction
         IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
         _nftToken.safeTransferFrom(
