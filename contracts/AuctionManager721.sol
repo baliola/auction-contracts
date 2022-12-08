@@ -98,7 +98,8 @@ contract AuctionManager721 {
         uint256 _startPrice,
         address _nftAddress,
         uint256 _tokenId,
-        address _nftSeller
+        address _nftCreator,
+        uint256 _royalty
     ) external returns (address) {
         if (_directBuyAuction) {
             require(
@@ -130,7 +131,8 @@ contract AuctionManager721 {
             _nftAddress,
             _tokenId,
             Kepeng,
-            _nftSeller
+            _nftCreator,
+            _royalty
         ); // create the auction
         IERC721 _nftToken = IERC721(_nftAddress); // get the nft token
         _nftToken.transferFrom(msg.sender, address(auction), _tokenId); // transfer the token to the auction
