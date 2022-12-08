@@ -102,93 +102,50 @@ contract AuctionManager1155 is ERC1155Holder {
                 _startPrice < _directBuyPrice,
                 "start price must be less than the direct buy price"
             ); // start price must be less than the direct buy price
-
-            if (_endTime != 0) {
-                require(
-                    _endTime > (block.timestamp + 12 hours),
-                    "must be greater than 12 hours"
-                );
-            }
-
-            uint256 auctionId = _auctionIdCounter; // get the current value of the counter
-            _auctionIdCounter++; // increment the counter
-            Auction1155 auction = new Auction1155(
-                msg.sender,
-                _endTime,
-                baliola,
-                _directBuyAuction,
-                _directBuyPrice,
-                _startPrice,
-                _nftAddress,
-                _tokenId,
-                _nftAmount,
-                Kepeng,
-                _nftSeller
-            ); // create the auction
-            IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
-            _nftToken.safeTransferFrom(
-                msg.sender,
-                address(this),
-                _tokenId,
-                _nftAmount,
-                ""
-            ); // transfer the token to the auction
-            _nftToken.safeTransferFrom(
-                address(this),
-                address(auction),
-                _tokenId,
-                _nftAmount,
-                ""
-            ); // transfer the token to the auction
-            auctionsByIndex[auctionId] = auction; // add the auction to the map
-            auctionsByAddress[auction] = auctionId;
-            auctionsUser[msg.sender].push(address(auction));
-
-            return address(auction);
-        } else {
-            if (_endTime != 0) {
-                require(
-                    _endTime > (block.timestamp + 12 hours),
-                    "must be greater than 12 hours"
-                );
-            }
-            uint256 auctionId = _auctionIdCounter; // get the current value of the counter
-            _auctionIdCounter++; // increment the counter
-            Auction1155 auction = new Auction1155(
-                msg.sender,
-                _endTime,
-                baliola,
-                _directBuyAuction,
-                _directBuyPrice,
-                _startPrice,
-                _nftAddress,
-                _tokenId,
-                _nftAmount,
-                Kepeng,
-                _nftSeller
-            ); // create the auction
-            IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
-            _nftToken.safeTransferFrom(
-                msg.sender,
-                address(this),
-                _tokenId,
-                _nftAmount,
-                ""
-            ); // transfer the token to the auction
-            _nftToken.safeTransferFrom(
-                address(this),
-                address(auction),
-                _tokenId,
-                _nftAmount,
-                ""
-            ); // transfer the token to the auction
-            auctionsByIndex[auctionId] = auction; // add the auction to the map
-            auctionsByAddress[auction] = auctionId;
-
-            auctionsUser[msg.sender].push(address(auction));
-
-            return address(auction);
         }
+
+        if (_endTime != 0) {
+            require(
+                _endTime > (block.timestamp + 12 hours),
+                "must be greater than 12 hours"
+            );
+        }
+
+        uint256 auctionId = _auctionIdCounter; // get the current value of the counter
+        _auctionIdCounter++; // increment the counter
+        Auction1155 auction = new Auction1155(
+            msg.sender,
+            _endTime,
+            baliola,
+            _directBuyAuction,
+            _directBuyPrice,
+            _startPrice,
+            _nftAddress,
+            _tokenId,
+            _nftAmount,
+            Kepeng,
+            _nftSeller
+        ); // create the auction
+        IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
+        _nftToken.safeTransferFrom(
+            msg.sender,
+            address(this),
+            _tokenId,
+            _nftAmount,
+            ""
+        ); // transfer the token to the auction
+        _nftToken.safeTransferFrom(
+            address(this),
+            address(auction),
+            _tokenId,
+            _nftAmount,
+            ""
+        ); // transfer the token to the auction
+        auctionsByIndex[auctionId] = auction; // add the auction to the map
+        auctionsByAddress[auction] = auctionId;
+        auctionsUser[msg.sender].push(address(auction));
+
+        return address(auction);
     }
 
     // Return a list of all auctionsByIndex

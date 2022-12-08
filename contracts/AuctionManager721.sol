@@ -109,64 +109,36 @@ contract AuctionManager721 {
                 _startPrice < _directBuyPrice,
                 "start price must be less than the direct buy price"
             ); // start price must be less than the direct buy price
-
-            if (_endTime != 0) {
-                require(
-                    _endTime > (block.timestamp + 12 hours),
-                    "must be greater than 12 hours"
-                );
-            }
-
-            uint256 auctionId = _auctionIdCounter; // get the current value of the counter
-            _auctionIdCounter++; // increment the counter
-            Auction721 auction = new Auction721(
-                msg.sender,
-                _endTime,
-                baliola,
-                _directBuyAuction,
-                _directBuyPrice,
-                _startPrice,
-                _nftAddress,
-                _tokenId,
-                Kepeng,
-                _nftSeller
-            ); // create the auction
-            IERC721 _nftToken = IERC721(_nftAddress); // get the nft token
-            _nftToken.transferFrom(msg.sender, address(auction), _tokenId); // transfer the token to the auction
-            auctionsByIndex[auctionId] = auction; // add the auction to the map
-            auctionsByAddress[auction] = auctionId;
-            auctionsUser[msg.sender].push(address(auction));
-
-            return address(auction);
-        } else {
-            if (_endTime != 0) {
-                require(
-                    _endTime > (block.timestamp + 12 hours),
-                    "must be greater than 12 hours"
-                );
-            }
-            uint256 auctionId = _auctionIdCounter; // get the current value of the counter
-            _auctionIdCounter++; // increment the counter
-            Auction721 auction = new Auction721(
-                msg.sender,
-                _endTime,
-                baliola,
-                _directBuyAuction,
-                _directBuyPrice,
-                _startPrice,
-                _nftAddress,
-                _tokenId,
-                Kepeng,
-                _nftSeller
-            ); // create the auction
-            IERC721 _nftToken = IERC721(_nftAddress); // get the nft token
-            _nftToken.transferFrom(msg.sender, address(auction), _tokenId); // transfer the token to the auction
-            auctionsByIndex[auctionId] = auction; // add the auction to the map
-            auctionsByAddress[auction] = auctionId;
-            auctionsUser[msg.sender].push(address(auction));
-
-            return address(auction);
         }
+
+        if (_endTime != 0) {
+            require(
+                _endTime > (block.timestamp + 12 hours),
+                "must be greater than 12 hours"
+            );
+        }
+
+        uint256 auctionId = _auctionIdCounter; // get the current value of the counter
+        _auctionIdCounter++; // increment the counter
+        Auction721 auction = new Auction721(
+            msg.sender,
+            _endTime,
+            baliola,
+            _directBuyAuction,
+            _directBuyPrice,
+            _startPrice,
+            _nftAddress,
+            _tokenId,
+            Kepeng,
+            _nftSeller
+        ); // create the auction
+        IERC721 _nftToken = IERC721(_nftAddress); // get the nft token
+        _nftToken.transferFrom(msg.sender, address(auction), _tokenId); // transfer the token to the auction
+        auctionsByIndex[auctionId] = auction; // add the auction to the map
+        auctionsByAddress[auction] = auctionId;
+        auctionsUser[msg.sender].push(address(auction));
+
+        return address(auction);
     }
 
     // Return a list of all auctionsByIndex
