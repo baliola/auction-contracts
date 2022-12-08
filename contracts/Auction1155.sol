@@ -232,14 +232,35 @@ contract Auction1155 is ERC1155Holder {
             msg.sender == creator,
             "The auction creator can only withdraw the funds"
         ); // The auction creator can only withdraw the funds
-        uint256 principal = (maxBid * 100) / 103;
-        uint256 fee = (principal * 3) / 100;
-        uint256 reward = maxBid - fee;
-        kepeng.transfer(nftSeller, reward); // Transfers funds to the creator
+        uint256 principal = _calculatePrincipal(maxBid);
+        uint256 fee = _calculateFee(principal);
+        uint256 reward = _calculateReward(maxBid, fee);
+
+        kepeng.transfer(nftSeller, reward);
         kepeng.transfer(baliolaWallet, fee);
         emit WithdrawFunds(nftSeller, maxBid); // Emit a withdraw funds event
 
         return true;
+    }
+
+    function _calculatePrincipal(uint256 _maxBid)
+        private
+        pure
+        returns (uint256)
+    {
+        return (_maxBid * 100) / 103;
+    }
+
+    function _calculateFee(uint256 _principal) private pure returns (uint256) {
+        return (_principal * 3) / 100;
+    }
+
+    function _calculateReward(uint256 _maxBid, uint256 _fee)
+        private
+        pure
+        returns (uint256)
+    {
+        return _maxBid - _fee;
     }
 
     function endAuctionByCreator() external returns (bool) {
