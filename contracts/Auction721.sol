@@ -246,26 +246,16 @@ contract Auction721 {
         uint256 fee = _calculateFee(principal);
 
         if (isRoyaltyActive) {
-            return hanldeWithdrawRoyalty(principal, fee);
-        } else {
-            return handleWithdraw(principal, fee);
+            hanldeWithdrawRoyalty(principal);
         }
+
+        return handleWithdraw(principal, fee);
     }
 
-    function hanldeWithdrawRoyalty(uint256 _principal, uint256 _fee)
-        private
-        returns (bool)
-    {
+    function hanldeWithdrawRoyalty(uint256 _principal) private {
         uint256 _royalty = _calculateRoyalty(royalty, _principal);
-        uint256 reward = _calculateReward(_principal, _royalty);
 
         kepeng.transfer(creator, _royalty);
-        kepeng.transfer(baliolaWallet, _fee);
-        kepeng.transfer(seller, reward);
-
-        emit WithdrawFunds(seller, reward); // Emit a withdraw funds event
-
-        return true;
     }
 
     function handleWithdraw(uint256 reward, uint256 fee)
