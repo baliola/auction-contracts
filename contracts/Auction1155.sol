@@ -244,13 +244,37 @@ contract Auction1155 is ERC1155Holder {
         ); // The auction seller can only withdraw the funds
         uint256 principal = _calculatePrincipal(maxBid);
         uint256 fee = _calculateFee(principal);
-        uint256 reward = _calculateReward(maxBid, fee);
 
-        kepeng.transfer(creator, reward);
+        if (isRoyaltyActive) {
+            hanldeWithdrawRoyalty(principal);
+        }
+
+        return handleWithdraw(principal, fee);
+    }
+
+    function hanldeWithdrawRoyalty(uint256 _principal) private {
+        uint256 _royalty = _calculateRoyalty(royalty, _principal);
+
+        kepeng.transfer(creator, _royalty);
+    }
+
+    function handleWithdraw(uint256 reward, uint256 fee)
+        private
+        returns (bool)
+    {
+        kepeng.transfer(seller, reward); // Transfers funds to the seller
         kepeng.transfer(baliolaWallet, fee);
-        emit WithdrawFunds(creator, maxBid); // Emit a withdraw funds event
+        emit WithdrawFunds(seller, reward); // Emit a withdraw funds event
 
         return true;
+    }
+
+    function _calculateRoyalty(uint256 _royalty, uint256 principal)
+        private
+        pure
+        returns (uint256)
+    {
+        return (principal * _royalty) / 100;
     }
 
     function _calculatePrincipal(uint256 _maxBid)
@@ -265,12 +289,12 @@ contract Auction1155 is ERC1155Holder {
         return (_principal * 3) / 100;
     }
 
-    function _calculateReward(uint256 _maxBid, uint256 _fee)
+    function _calculateReward(uint256 _reward, uint256 _fee)
         private
         pure
         returns (uint256)
     {
-        return _maxBid - _fee;
+        return _reward - _fee;
     }
 
     function endAuctionByCreator() external returns (bool) {
