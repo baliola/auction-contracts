@@ -63,20 +63,13 @@ contract Auction1155 is ERC1155Holder {
         uint256 _tokenId,
         uint256 _nftAmount,
         KEPENG _kepeng,
-        address _creator,
-        uint256 _royalty
+        address _creator
     ) {
         seller = _seller; // The address of the auction seller
         if (_endTime == 0) {
             endTime = 0;
         } else {
             endTime = _endTime; // The timestamp which marks the end of the auction (now + 30 days = 30 days from now)
-        }
-
-        if (_royalty != 0) {
-            isRoyaltyActive = true;
-        } else {
-            isRoyaltyActive = false;
         }
 
         startTime = block.timestamp; // The timestamp which marks the start of the auction
@@ -93,6 +86,20 @@ contract Auction1155 is ERC1155Holder {
         manager = msg.sender;
         baliolaWallet = _baliola;
         nftAmount = _nftAmount;
+    }
+
+    // we need this function because we cannot add more constructor parameters.
+    // this function will be called only once from the auction manager when the auction is created.
+    // we intentionally did not leave a way to access this function by restricting the caller to only manager.
+    function setRoyalty(uint256 _royalty) external onlyManager {
+        if (_royalty != 0) {
+            isRoyaltyActive = true;
+        } else {
+            isRoyaltyActive = false;
+        }
+        royalty = _royalty;
+
+        return;
     }
 
     // Returns a list of all bids and addresses
