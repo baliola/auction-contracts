@@ -12,8 +12,8 @@ contract Auction1155 is ERC1155Holder {
     uint256 public startTime; // The block timestamp which marks the start of the auction
     uint256 public maxBid; // The maximum bid
     address public maxBidder; // The address of the maximum bidder
-    address public creator; // The address of the auction creator
-    address public nftSeller; // the address of the nft seller
+    address public seller; // The address of the auction seller
+    address public creator; // the address of the nft seller
     Bid[] public bids; // The bids made by the bidders
     uint256 public tokenId; // The id of the token
     bool public isCancelled; // If the the auction is cancelled
@@ -29,6 +29,8 @@ contract Auction1155 is ERC1155Holder {
     bool public isEndedByCreator;
     address public baliolaWallet;
     uint256 public nftAmount;
+    uint256 public royalty;
+    bool public isRoyaltyActive;
 
     enum AuctionState {
         OPEN,
@@ -51,7 +53,7 @@ contract Auction1155 is ERC1155Holder {
 
     // Auction constructor
     constructor(
-        address _creator,
+        address _seller,
         uint256 _endTime,
         address _baliola,
         bool _directBuyStatus,
@@ -61,14 +63,22 @@ contract Auction1155 is ERC1155Holder {
         uint256 _tokenId,
         uint256 _nftAmount,
         KEPENG _kepeng,
-        address _nftSeller
+        address _creator,
+        uint256 _royalty
     ) {
-        creator = _creator; // The address of the auction creator
+        seller = _seller; // The address of the auction seller
         if (_endTime == 0) {
             endTime = 0;
         } else {
             endTime = _endTime; // The timestamp which marks the end of the auction (now + 30 days = 30 days from now)
         }
+
+        if (_royalty != 0) {
+            isRoyaltyActive = true;
+        } else {
+            isRoyaltyActive = false;
+        }
+
         startTime = block.timestamp; // The timestamp which marks the start of the auction
         minIncrement = 10000; // The minimum increment for the bid
         directBuyStatus = _directBuyStatus; // true if the auction has a fixed price, false otherwise
@@ -77,9 +87,9 @@ contract Auction1155 is ERC1155Holder {
         nft1155 = IERC1155(_nftAddress); // The address of the nft token
         nftAddress = _nftAddress;
         tokenId = _tokenId; // The id of the token
-        maxBidder = _creator; // Setting the maxBidder to auction creator.
+        maxBidder = _creator; // Setting the maxBidder to auction seller.
         kepeng = _kepeng; // kepeng_address smart contracts address
-        nftSeller = _nftSeller;
+        creator = _creator;
         manager = msg.sender;
         baliolaWallet = _baliola;
         nftAmount = _nftAmount;
@@ -176,7 +186,7 @@ contract Auction1155 is ERC1155Holder {
         onlyManager
         returns (bool)
     {
-        require(bidder != creator, "The auction creator can not place a bid"); // The auction creator can not place a bid
+        require(bidder != seller, "The auction seller can not place a bid"); // The auction seller can not place a bid
         require(
             getAuctionState() == AuctionState.OPEN,
             "can only place bid if the auction open"
@@ -225,20 +235,20 @@ contract Auction1155 is ERC1155Holder {
             getAuctionState() == AuctionState.ENDED ||
                 getAuctionState() == AuctionState.DIRECT_BUY ||
                 getAuctionState() == AuctionState.ENDED_BY_CREATOR,
-            "The auction must be ended by either a direct buy, by creator, or timeout"
+            "The auction must be ended by either a direct buy, by seller, or timeout"
         ); // The auction must be ended by either a direct buy or timeout
 
         require(
-            msg.sender == creator,
-            "The auction creator can only withdraw the funds"
-        ); // The auction creator can only withdraw the funds
+            msg.sender == seller,
+            "The auction seller can only withdraw the funds"
+        ); // The auction seller can only withdraw the funds
         uint256 principal = _calculatePrincipal(maxBid);
         uint256 fee = _calculateFee(principal);
         uint256 reward = _calculateReward(maxBid, fee);
 
-        kepeng.transfer(nftSeller, reward);
+        kepeng.transfer(creator, reward);
         kepeng.transfer(baliolaWallet, fee);
-        emit WithdrawFunds(nftSeller, maxBid); // Emit a withdraw funds event
+        emit WithdrawFunds(creator, maxBid); // Emit a withdraw funds event
 
         return true;
     }
@@ -264,7 +274,7 @@ contract Auction1155 is ERC1155Holder {
     }
 
     function endAuctionByCreator() external returns (bool) {
-        require(msg.sender == creator, "only the creator can end the auction!");
+        require(msg.sender == seller, "only the seller can end the auction!");
         require(
             getAuctionState() == AuctionState.OPEN,
             "can only end auction when it's open!"
@@ -279,9 +289,9 @@ contract Auction1155 is ERC1155Holder {
     function cancelAuction() external returns (bool) {
         // Cancel the auction
         require(
-            msg.sender == creator,
-            "Only the auction creator can cancel the auction"
-        ); // Only the auction creator can cancel the auction
+            msg.sender == seller,
+            "Only the auction seller can cancel the auction"
+        ); // Only the auction seller can cancel the auction
         require(
             getAuctionState() == AuctionState.OPEN,
             "can only cancel auction if the auction is open"
