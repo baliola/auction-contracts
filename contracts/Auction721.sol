@@ -245,16 +245,42 @@ contract Auction721 {
         ); // The auction seller can only withdraw the funds
         uint256 principal = _calculatePrincipal(maxBid);
         uint256 fee = _calculateFee(principal);
-        uint256 reward = _calculateReward(maxBid, fee);
 
-        kepeng.transfer(creator, reward); // Transfers funds to the seller
-        kepeng.transfer(baliolaWallet, fee);
-        emit WithdrawFunds(creator, maxBid); // Emit a withdraw funds event
+        if (isRoyaltyActive) {
+            return hanldeWithdrawRoyalty(principal, fee);
+        } else {
+            return handleWithdraw(principal, fee);
+        }
+    }
+
+    function hanldeWithdrawRoyalty(uint256 _principal, uint256 _fee)
+        private
+        returns (bool)
+    {
+        uint256 _royalty = _calculateRoyalty(royalty, _principal);
+        uint256 reward = _calculateReward(_principal, _royalty);
+
+        kepeng.transfer(creator, _royalty);
+        kepeng.transfer(baliolaWallet, _fee);
+        kepeng.transfer(seller, reward);
+
+        emit WithdrawFunds(seller, reward); // Emit a withdraw funds event
 
         return true;
     }
 
-    function calculateRoyalty(uint256 _royalty, uint256 principal)
+    function handleWithdraw(uint256 reward, uint256 fee)
+        private
+        returns (bool)
+    {
+        kepeng.transfer(seller, reward); // Transfers funds to the seller
+        kepeng.transfer(baliolaWallet, fee);
+        emit WithdrawFunds(seller, reward); // Emit a withdraw funds event
+
+        return true;
+    }
+
+    function _calculateRoyalty(uint256 _royalty, uint256 principal)
         private
         pure
         returns (uint256)
@@ -274,12 +300,12 @@ contract Auction721 {
         return (_principal * 3) / 100;
     }
 
-    function _calculateReward(uint256 _maxBid, uint256 _fee)
+    function _calculateReward(uint256 _reward, uint256 _fee)
         private
         pure
         returns (uint256)
     {
-        return _maxBid - _fee;
+        return _reward - _fee;
     }
 
     function endAuctionByCreator() external returns (bool) {
@@ -316,15 +342,15 @@ contract Auction721 {
     // Get the auction state
     function getAuctionState() public view returns (AuctionState) {
         if (isEndedByCreator) return AuctionState.ENDED_BY_CREATOR;
-        if (isCancelled) return AuctionState.CANCELLED; // If the auction is cancelled return CANCELLED
-        if (isDirectBuy) return AuctionState.DIRECT_BUY; // If the auction is ended by a direct buy return DIRECT_BUY
+        if (isCancelled) return AuctionState.CANCELLED;
+        if (isDirectBuy) return AuctionState.DIRECT_BUY;
 
         if (endTime == 0) {
             return AuctionState.OPEN;
         } else if (block.timestamp >= endTime) {
-            return AuctionState.ENDED; // The auction is over if the block timestamp is greater than the end timestamp, return ENDED
+            return AuctionState.ENDED;
         } else {
-            return AuctionState.OPEN; // Otherwise return OPEN
+            return AuctionState.OPEN;
         }
     }
 
