@@ -28,6 +28,7 @@ const defaultAuctionIndex = 1;
 const defaultNftAMount = 1;
 
 const defaultNftTokenId = 0;
+const daySeconds = 86400;
 
 /**
  *
@@ -108,6 +109,7 @@ module.exports = {
   defaultAuctionIndex,
   defaultNftAMount,
   defaultNftTokenId,
+  daySeconds,
   getDeployedContracts,
   getBaliolaWallet,
   getManagerWallet,
