@@ -65,7 +65,7 @@ class TimeHelper {
   }
 
   toSeconds(ms) {
-    return ms / 1000;
+    return parseInt(ms / 1000);
   }
 }
 
