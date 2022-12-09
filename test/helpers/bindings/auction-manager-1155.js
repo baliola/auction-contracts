@@ -62,8 +62,8 @@ class AuctionManager1155 {
   }
 
 
-  async createAuction(_endTime, _directBuyAuction, _directBuyPrice, _startPrice, _nftAddress, _tokenId, _nftAmount, _nftSeller, fromAddress, _royalty = 0) {
-    const tx = await this.contractInstance.createAuction(_endTime, _directBuyAuction, _directBuyPrice, _startPrice, _nftAddress, _tokenId, _nftAmount, _nftSeller, _royalty, { from: fromAddress });
+  async createAuction(_endTime, _directBuyAuction, _directBuyPrice, _startPrice, _nftAddress, _tokenId, _nftAmount, _nftCreator, fromAddress, _royalty = 0) {
+    const tx = await this.contractInstance.createAuction(_endTime, _directBuyAuction, _directBuyPrice, _startPrice, _nftAddress, _tokenId, _nftAmount, _nftCreator, _royalty, { from: fromAddress });
     return tx;
   }
 
