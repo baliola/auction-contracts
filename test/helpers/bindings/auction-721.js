@@ -23,6 +23,16 @@ class Auction721 {
     return tx;
   }
 
+  async royalty(fromAddress) {
+    const tx = await this.contractInstance.royalty({ from: fromAddress });
+    return tx;
+  }
+
+  async isRoyaltyActive(fromAddress) {
+    const tx = await this.contractInstance.isRoyaltyActive({ from: fromAddress });
+    return tx;
+  }
+
   async directBuyPrice(fromAddress) {
     const tx = await this.contractInstance.directBuyPrice({ from: fromAddress });
     return tx;
