@@ -48,6 +48,17 @@ class Auction1155 {
     return tx;
   }
 
+  async royalty(fromAddress) {
+    const tx = await this.contractInstance.royalty({ from: fromAddress });
+    return tx;
+  }
+
+  async isRoyaltyActive(fromAddress) {
+    const tx = await this.contractInstance.isRoyaltyActive({ from: fromAddress });
+    return tx;
+  }
+
+
   async isEndedByCreator(fromAddress) {
     const tx = await this.contractInstance.isEndedByCreator({ from: fromAddress });
     return tx;
