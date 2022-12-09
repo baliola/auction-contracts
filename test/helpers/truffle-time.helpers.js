@@ -63,6 +63,10 @@ class TimeHelper {
     await this.advanceBlock();
     return Promise.resolve(web3.eth.getBlock("latest"));
   }
+
+  toSeconds(ms) {
+    return ms / 1000;
+  }
 }
 
 module.exports = {
