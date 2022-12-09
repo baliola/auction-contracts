@@ -23,6 +23,8 @@ const fixedPriceAuctionManager = "FixedPriceAuctionManager1155";
 const kepeng = "KEPENG";
 
 const kepengDecimals = 1e4;
+const defaultPrice = 10000;
+const defaultStartPrice = 0;
 
 const defaultAuctionIndex = 1;
 const defaultNftAMount = 1;
@@ -110,6 +112,8 @@ module.exports = {
   defaultNftAMount,
   defaultNftTokenId,
   daySeconds,
+  defaultStartPrice,
+  defaultPrice,
   getDeployedContracts,
   getBaliolaWallet,
   getManagerWallet,
