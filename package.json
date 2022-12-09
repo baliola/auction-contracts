@@ -7,15 +7,15 @@
     "test": "test"
   },
   "scripts": {
-    "compile" : "npx truffle compile",
+    "compile": "npx truffle compile",
     "develop": "npx truffle develop",
     "test-fixed-price": "npx truffle test ./test/fixed-price/fixed-price-1155.test.js --compile-none",
     "test-open-bid-multiple": "npx truffle test ./test/test-1155/open-bids-1155.test.js --compile-none",
-    "test-timed-multiple" : "npx truffle test ./test/test-1155/timed-auction-1155.test.js --compile-none",
+    "test-timed-multiple": "npx truffle test ./test/test-1155/timed-auction-1155.test.js --compile-none",
+    "test-royalty-multiple": "npx truffle test ./test/test-1155/royalty-1155.test.js --compile-none",
     "test-open-bid-single": "npx truffle test ./test/test-721/open-bids-721.test.js --compile-none",
     "test-fixed-price-single": "npx truffle test ./test/test-721/fixed-price-721.test.js --compile-none",
     "test-timed-single": "npx truffle test ./test/test-721/timed-auction-721.test.js --compile-none"
-    
   },
   "repository": {
     "type": "git",
