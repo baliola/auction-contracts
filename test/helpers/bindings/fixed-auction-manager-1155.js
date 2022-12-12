@@ -102,15 +102,17 @@ class FixedPriceAuctionManager1155 {
     _nftAddress,
     _tokenId,
     _nftAmount,
-    _nftSeller,
-    fromAddress
+    _nftCreator,
+    fromAddress,
+    _royalty = 0
   ) {
     const tx = await this.contractInstance.createAuction(
       price,
       _nftAddress,
       _tokenId,
       _nftAmount,
-      _nftSeller,
+      _nftCreator,
+      _royalty,
       { from: fromAddress }
     );
     return tx;

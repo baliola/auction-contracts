@@ -34,6 +34,17 @@ class AuctionFixedPrice1155 {
     return tx;
   }
 
+  async isRoyaltyActive(fromAddress) {
+    const tx = await this.contractInstance.isRoyaltyActive({ from: fromAddress });
+    return tx;
+  }
+
+  async royalty(fromAddress) {
+    const tx = await this.contractInstance.royalty({ from: fromAddress });
+    return tx;
+  }
+
+
   async initialNftAmount(fromAddress) {
     const tx = await this.contractInstance.initialNftAmount({ from: fromAddress });
     return tx;
