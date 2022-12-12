@@ -154,6 +154,20 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         return true;
     }
 
+    function handleWithdrawRoyalty(uint256 _principal) private {
+        uint256 _royalty = _calculateRoyalty(royalty, _principal);
+
+        kepeng.transfer(creator, _royalty);
+    }
+
+    function _calculateRoyalty(uint256 _royalty, uint256 principal)
+        private
+        pure
+        returns (uint256)
+    {
+        return (principal * _royalty) / 100;
+    }
+
     function EndAuction() external returns (bool) {
         //  the auction
         require(

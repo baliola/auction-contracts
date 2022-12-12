@@ -251,17 +251,18 @@ contract Auction1155 is ERC1155Holder {
         ); // The auction seller can only withdraw the funds
         uint256 principal = _calculatePrincipal(maxBid);
         uint256 fee = _calculateFee(principal);
+        uint256 reward = principal;
 
         if (isRoyaltyActive) {
-            handleWithdrawRoyalty(principal);
+            uint256 _royalty = _calculateRoyalty(royalty, principal);
+            reward -= _royalty;
+            handleWithdrawRoyalty(_royalty);
         }
 
-        return handleWithdraw(principal, fee);
+        return handleWithdraw(reward, fee);
     }
 
-    function handleWithdrawRoyalty(uint256 _principal) private {
-        uint256 _royalty = _calculateRoyalty(royalty, _principal);
-
+    function handleWithdrawRoyalty(uint256 _royalty) private {
         kepeng.transfer(creator, _royalty);
     }
 
