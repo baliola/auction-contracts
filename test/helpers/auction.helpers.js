@@ -30,7 +30,8 @@ class AuctionHelper {
         await nft1155Contract.setApprovalForAll(auctionManager.address, true, { from: nftSellerAddress })
 
         // create auction
-        await auctionManager.createAuction(price, nft1155Contract.address, defaultNftTokenId, defaultNftAMount, nftSellerAddress, { from: nftSellerAddress })
+        const defaultRoyalty = 0;
+        await auctionManager.createAuction(price, nft1155Contract.address, defaultNftTokenId, defaultNftAMount, nftSellerAddress, defaultRoyalty, { from: nftSellerAddress })
     }
 
     /**
