@@ -181,6 +181,6 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
 
     event AuctionEnded(); // The auction was cancelled
     event OutOfSupply(); //  the contract has run out of nft
-    event hasBought(address buyer, uint256 amount); // buy event
+    event hasBought(address indexed buyer, uint256 amount); // buy event
     event Refilled(uint256 amount); // the contract has received nft
 }
