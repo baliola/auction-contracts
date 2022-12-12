@@ -8,6 +8,7 @@ const CAN_ONLY_END_IF_AUCTION_IS_OPEN =
   "can only end auction if the auction is open";
 const ONLY_CREATOR_CAN_END_AUCTION =
   "Only the auction creator can end the auction";
+const CAN_ONLY_REFILL_WHEN_OPEN = "can only refill when auction is still open"
 
 const SPECIAL_FIXED_PRICE_AUCTION_ERRORS = {
   ONLY_CREATOR_CAN_REFILL,
@@ -18,6 +19,7 @@ const SPECIAL_FIXED_PRICE_AUCTION_ERRORS = {
   CREATOR_CANNOT_BUY,
   CAN_ONLY_END_IF_AUCTION_IS_OPEN,
   ONLY_CREATOR_CAN_END_AUCTION,
+  CAN_ONLY_REFILL_WHEN_OPEN
 };
 
 module.exports = {
