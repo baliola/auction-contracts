@@ -244,17 +244,18 @@ contract Auction721 {
         );
         uint256 principal = _calculatePrincipal(maxBid);
         uint256 fee = _calculateFee(principal);
+        uint256 reward = principal;
 
         if (isRoyaltyActive) {
-            hanldeWithdrawRoyalty(principal);
+            uint256 _royalty = _calculateRoyalty(royalty, principal);
+            reward -= _royalty;
+            handleWithdrawRoyalty(_royalty);
         }
 
-        return handleWithdraw(principal, fee);
+        return handleWithdraw(reward, fee);
     }
 
-    function hanldeWithdrawRoyalty(uint256 _principal) private {
-        uint256 _royalty = _calculateRoyalty(royalty, _principal);
-
+    function handleWithdrawRoyalty(uint256 _royalty) private {
         kepeng.transfer(creator, _royalty);
     }
 
@@ -343,9 +344,9 @@ contract Auction721 {
         }
     }
 
-    event NewBid(address bidder, uint256 bid); // A new bid was placed
-    event WithdrawToken(address withdrawer); // The auction winner withdrawed the token
-    event WithdrawFunds(address withdrawer, uint256 amount); // The auction owner withdrawed the funds
+    event NewBid(address indexed bidder, uint256 bid); // A new bid was placed
+    event WithdrawToken(address indexed withdrawer); // The auction winner withdrawed the token
+    event WithdrawFunds(address indexed withdrawer, uint256 amount); // The auction owner withdrawed the funds
     event AuctionCanceled(); // The auction was cancelled
     event EndedByCreator();
 }

@@ -124,7 +124,8 @@ contract FixedPriceAuctionManager1155 is ERC1155Holder {
         address _nftAddress,
         uint256 _tokenId,
         uint256 _nftAmount,
-        address _nftSeller
+        address _nftCreator,
+        uint256 _royalty
     ) external returns (address) {
         uint256 auctionId = _auctionIdCounter; // get the current value of the counter
         _auctionIdCounter++; // increment the counter
@@ -136,7 +137,8 @@ contract FixedPriceAuctionManager1155 is ERC1155Holder {
             _nftAmount,
             price,
             Kepeng,
-            _nftSeller
+            _nftCreator,
+            _royalty
         ); // create the auction
 
         auctionsByIndex[auctionId] = auction; // add the auction to the map
