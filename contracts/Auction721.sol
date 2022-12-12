@@ -70,7 +70,7 @@ contract Auction721 {
             endTime = _endTime; // The timestamp which marks the end of the auction (now + 30 days = 30 days from now)
         }
 
-        if (_royalty != 0) {
+        if (_royalty != 0 && _seller != _creator) {
             isRoyaltyActive = true;
         } else {
             isRoyaltyActive = false;

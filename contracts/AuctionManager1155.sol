@@ -127,7 +127,9 @@ contract AuctionManager1155 is ERC1155Holder {
             Kepeng,
             _nftCreator
         ); // create the auction
-        auction.setRoyalty(_royalty);
+        if (msg.sender != _nftCreator) {
+            auction.setRoyalty(_royalty);
+        }
         IERC1155 _nftToken = IERC1155(_nftAddress); // get the nft token
         _nftToken.safeTransferFrom(
             msg.sender,
