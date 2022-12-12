@@ -22,7 +22,8 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
     uint256 public availableNFT; // total of available nft
     uint256 public price; // the price per 1 nft
     uint256 public index = 0; // buyer tracker
-
+    uint256 public royalty;
+    bool public isRoyaltyActive;
     mapping(uint256 => Buyer) public buyers; // mapping for buyer
 
     enum AuctionState {
@@ -66,6 +67,14 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         initialNftAmount = _nftAmount;
         availableNFT = _nftAmount;
         price = _price;
+
+        if (_royalty != 0 && _seller != _creator) {
+            isRoyaltyActive = true;
+        } else {
+            isRoyaltyActive = false;
+        }
+
+        royalty = _royalty;
     }
 
     function GetAllBuyers()
