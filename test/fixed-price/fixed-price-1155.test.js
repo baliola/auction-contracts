@@ -395,6 +395,72 @@ contract(fixedPriceAuctionManager, async (defaultAccounts) => {
     );
   });
 
+  it("should refill the nft from auction", async () => {
+    const accounts = defaultAccounts;
+    const contractFactory = new ContractFactory();
+    const users = getUserWallets(accounts);
+    const baliolaWallet = getBaliolaWallet(accounts);
+    const managerWallet = getManagerWallet(accounts);
+
+    const nftId = 0;
+    const initNft = 10;
+    const nftAmountForAuction = 5;
+    const nftAmountForRefill = 5;
+    const startPrice = 10000;
+    const nftContract = await contractFactory.makeDummy1155Nft(users[0]);
+    const mintNft = await nftContract.mint(users[0], initNft, "0x", users[0]);
+    const _auctionId = 1;
+
+    const kepeng = await contractFactory.makeKepeng(users[0]);
+    const balanceKepeng = await kepeng.balanceOf(
+      users[0],
+      kepeng.contractAddress
+    );
+
+    const aManager115 = await contractFactory.makeFixedPrice1155Manager(
+      users[0],
+      kepeng.contractAddress,
+      baliolaWallet,
+      managerWallet
+    );
+
+    const approveNft = await nftContract.setApprovalForAll(
+      aManager115.contractAddress,
+      true,
+      users[0]
+    );
+
+    const createAuction = await aManager115.createAuction(
+      startPrice,
+      nftContract.contractAddress,
+      nftId,
+      nftAmountForAuction,
+      users[0],
+      users[0]
+    );
+
+    const auctionAdrress = await aManager115.getUserAuction(users[0], users[0]);
+    const auction1155 = await aManager115.inferAuction(auctionAdrress[0]);
+
+    const availableNft = await auction1155.availableNFT(users[0]);
+    const availableNFTParse = parseInt(availableNft);
+
+    const refillNft = await aManager115.refill(
+      _auctionId,
+      nftAmountForRefill,
+      users[0]
+    );
+
+    const availableNFTAfterRefill = parseInt(
+      await auction1155.availableNFT(users[0])
+    );
+
+    assert.strictEqual(
+      availableNFTAfterRefill,
+      availableNFTParse + nftAmountForRefill
+    );
+  });
+
   it("should get all auction from a user", async () => {
     const accounts = defaultAccounts;
     const contractFactory = new ContractFactory();
@@ -685,14 +751,79 @@ contract(fixedPriceAuctionManager, async (defaultAccounts) => {
       const refillNft = await aManager115.refill(
         _auctionId,
         nftAmountForRefill,
-        users[0]
+        users[1]
       );
     } catch (error) {
       assert.strictEqual(
         error.reason,
         SPECIAL_FIXED_PRICE_AUCTION_ERRORS.ONLY_CREATOR_CAN_REFILL
       );
-      console.log("error", error.reason);
+    }
+  });
+
+  it("error test for refill : can only refill when auction is open", async () => {
+    const accounts = defaultAccounts;
+    const contractFactory = new ContractFactory();
+    const users = getUserWallets(accounts);
+    const baliolaWallet = getBaliolaWallet(accounts);
+    const managerWallet = getManagerWallet(accounts);
+
+    const nftId = 0;
+    const initNft = 10;
+    const nftAmountForAuction = 5;
+    const nftAmountForRefill = 5;
+    const startPrice = 10000;
+    const nftContract = await contractFactory.makeDummy1155Nft(users[0]);
+    const mintNft = await nftContract.mint(users[0], initNft, "0x", users[0]);
+    const _auctionId = 1;
+
+    const kepeng = await contractFactory.makeKepeng(users[0]);
+    const balanceKepeng = await kepeng.balanceOf(
+      users[0],
+      kepeng.contractAddress
+    );
+
+    const aManager115 = await contractFactory.makeFixedPrice1155Manager(
+      users[0],
+      kepeng.contractAddress,
+      baliolaWallet,
+      managerWallet
+    );
+
+    const approveNft = await nftContract.setApprovalForAll(
+      aManager115.contractAddress,
+      true,
+      users[0]
+    );
+
+    const createAuction = await aManager115.createAuction(
+      startPrice,
+      nftContract.contractAddress,
+      nftId,
+      nftAmountForAuction,
+      users[0],
+      users[0]
+    );
+
+    const auctionAdrress = await aManager115.getUserAuction(users[0], users[0]);
+    const auction1155 = await aManager115.inferAuction(auctionAdrress[0]);
+
+    const availableNft = await auction1155.availableNFT(users[0]);
+    const availableNFTParse = parseInt(availableNft);
+
+    const endAuction = await auction1155.EndAuction(users[0]);
+
+    try {
+      const refillNft = await aManager115.refill(
+        _auctionId,
+        nftAmountForRefill,
+        users[0]
+      );
+    } catch (error) {
+      assert.strictEqual(
+        error.reason,
+        SPECIAL_FIXED_PRICE_AUCTION_ERRORS.CAN_ONLY_REFILL_WHEN_OPEN
+      );
     }
   });
 
