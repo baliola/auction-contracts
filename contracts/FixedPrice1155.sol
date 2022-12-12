@@ -8,8 +8,8 @@ import "./kepeng.sol";
 
 contract AuctionFixedPrice1155 is ERC1155Holder {
     using SafeMath for uint256;
-    address public creator; // The address of the auction creator
-    address public nftSeller; // the address of the nft seller
+    address public seller;
+    address public creator;
     uint256 public tokenId; // The id of the token
     bool public isEnded; // If the the auction is cancelled
     address public nftAddress; // The address of the NFT contract
@@ -22,6 +22,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
     uint256 public availableNFT; // total of available nft
     uint256 public price; // the price per 1 nft
     uint256 public index = 0; // buyer tracker
+
     mapping(uint256 => Buyer) public buyers; // mapping for buyer
 
     enum AuctionState {
@@ -44,21 +45,22 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
 
     // Auction constructor
     constructor(
-        address _creator,
+        address _seller,
         address _baliola,
         address _nftAddress,
         uint256 _tokenId,
         uint256 _nftAmount,
         uint256 _price,
         KEPENG _kepeng,
-        address _nftSeller
+        address _creator,
+        uint256 _royalty
     ) {
-        creator = _creator; // The address of the auction creator
+        seller = _seller; // The address of the auction seller
         nft1155 = IERC1155(_nftAddress); // The nft contract instance
         nftAddress = _nftAddress;
         tokenId = _tokenId; // The id of the token
         kepeng = _kepeng; // kepeng address smart contracts address
-        nftSeller = _nftSeller;
+        creator = _creator;
         manager = msg.sender;
         baliolaWallet = _baliola;
         initialNftAmount = _nftAmount;
@@ -96,7 +98,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         onlyManager
         returns (bool)
     {
-        require(_creator == creator, "only creator can refill");
+        require(_creator == seller, "only seller can refill");
         availableNFT = availableNFT + amount;
 
         emit Refilled(amount);
@@ -109,7 +111,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         uint256 _amount,
         uint256 txFee
     ) external onlyManager returns (bool) {
-        require(_buyer != creator, "creator cannot buy nft!");
+        require(_buyer != seller, "seller cannot buy nft!");
         require(availableNFT != 0, "out of supply! no nft is being selled!");
         require(_amount <= availableNFT, "not enough available nft!");
         require(
@@ -132,7 +134,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         availableNFT = availableNFT - _amount;
 
         nft1155.safeTransferFrom(address(this), _buyer, tokenId, _amount, "");
-        kepeng.transfer(nftSeller, txFee);
+        kepeng.transfer(creator, txFee);
 
         emit hasBought(_buyer, _amount);
 
@@ -146,9 +148,9 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
     function EndAuction() external returns (bool) {
         //  the auction
         require(
-            msg.sender == creator,
-            "Only the auction creator can end the auction"
-        ); // Only the auction creator can End the auction
+            msg.sender == seller,
+            "Only the auction seller can end the auction"
+        ); // Only the auction seller can End the auction
         require(
             getAuctionState() == AuctionState.OPEN,
             "can only end auction if the auction is open"
@@ -157,7 +159,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
 
         nft1155.safeTransferFrom(
             address(this),
-            creator,
+            seller,
             tokenId,
             availableNFT,
             ""
@@ -170,7 +172,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
     // Get the auction state
     function getAuctionState() public view returns (AuctionState) {
         if (availableNFT == 0) return AuctionState.OUT_OF_SUPPLY; // auction has run out of nft
-        if (isEnded) return AuctionState.ENDED_BY_CREATOR; // If the auction is ended by creator
+        if (isEnded) return AuctionState.ENDED_BY_CREATOR; // If the auction is ended by seller
         return AuctionState.OPEN; // Otherwise return OPEN
     }
 
