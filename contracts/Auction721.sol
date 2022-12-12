@@ -246,13 +246,13 @@ contract Auction721 {
         uint256 fee = _calculateFee(principal);
 
         if (isRoyaltyActive) {
-            hanldeWithdrawRoyalty(principal);
+            handleWithdrawRoyalty(principal);
         }
 
         return handleWithdraw(principal, fee);
     }
 
-    function hanldeWithdrawRoyalty(uint256 _principal) private {
+    function handleWithdrawRoyalty(uint256 _principal) private {
         uint256 _royalty = _calculateRoyalty(royalty, _principal);
 
         kepeng.transfer(creator, _royalty);
