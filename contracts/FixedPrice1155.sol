@@ -108,6 +108,11 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         returns (bool)
     {
         require(_creator == seller, "only seller can refill");
+        require(
+            getAuctionState() == AuctionState.OPEN,
+            "can only refill when auction is still open"
+        );
+
         availableNFT = availableNFT + amount;
 
         emit Refilled(amount);
