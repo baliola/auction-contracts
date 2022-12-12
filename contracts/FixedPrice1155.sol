@@ -142,6 +142,12 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         index++;
         availableNFT = availableNFT - _amount;
 
+        if (isRoyaltyActive) {
+            uint256 _royalty = _calculateRoyalty(royalty, txFee);
+            txFee -= _royalty;
+            handleWithdrawRoyalty(_royalty);
+        }
+
         nft1155.safeTransferFrom(address(this), _buyer, tokenId, _amount, "");
         kepeng.transfer(creator, txFee);
 
@@ -154,9 +160,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         return true;
     }
 
-    function handleWithdrawRoyalty(uint256 _principal) private {
-        uint256 _royalty = _calculateRoyalty(royalty, _principal);
-
+    function handleWithdrawRoyalty(uint256 _royalty) private {
         kepeng.transfer(creator, _royalty);
     }
 
