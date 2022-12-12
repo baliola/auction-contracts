@@ -315,9 +315,9 @@ contract Auction1155 is ERC1155Holder {
         }
     }
 
-    event NewBid(address bidder, uint256 bid); // A new bid was placed
-    event WithdrawToken(address withdrawer); // The auction winner withdrawed the token
-    event WithdrawFunds(address withdrawer, uint256 amount); // The auction owner withdrawed the funds
+    event NewBid(address indexed bidder, uint256 bid); // A new bid was placed
+    event WithdrawToken(address indexed withdrawer); // The auction winner withdrawed the token
+    event WithdrawFunds(address indexed withdrawer, uint256 amount); // The auction owner withdrawed the funds
     event AuctionCanceled(); // The auction was cancelled
     event EndedByCreator();
 }
