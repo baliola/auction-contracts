@@ -88,6 +88,20 @@ async function instantiateAuctionContractAtAddress(address) {
   return auction;
 }
 
+/**
+ * 
+ * @param {number} actual 
+ * @param {number} expected 
+ * @param {number} range 
+ * @returns {boolean}
+ */
+function assertRange(actual, expected, range) {
+  if (expected < actual + range) return true;
+  else if (expected > actual - range) return true;
+  else return false;
+}
+
+
 module.exports = {
   auction721,
   auction1155,
@@ -120,4 +134,5 @@ module.exports = {
   getUserWallets,
   getDeployerWallet,
   instantiateAuctionContractAtAddress,
+  assertRange
 };
