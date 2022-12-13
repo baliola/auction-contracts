@@ -154,7 +154,7 @@ contract AuctionFixedPrice1155 is ERC1155Holder {
         }
 
         nft1155.safeTransferFrom(address(this), _buyer, tokenId, _amount, "");
-        kepeng.transfer(creator, txFee);
+        kepeng.transfer(seller, txFee);
 
         emit hasBought(_buyer, _amount);
 
